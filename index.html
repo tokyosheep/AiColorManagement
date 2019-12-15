@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+        
+<link rel="stylesheet" href="css/topcoat-desktop-dark.min.css"/>
+<link  id="hostStyle" rel="stylesheet" href="css/styles.css"/>
+
+<title></title>
+</head>
+
+<body class="hostElt">
+
+    <div id="createSample" class="hide">        
+        
+        <form name="colorData">
+            <h3>Xaxes</h3>
+            <ul>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="XColor" class="XColor" value="cyan">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        cyan
+                    </label>
+                </li>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="XColor" class="XColor" value="magenta" checked="true">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        magenta
+                    </label>
+                </li>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="XColor" class="XColor" value="yellow">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        yellow
+                    </label>
+                </li>
+            </ul>
+            <h3>Yaxes</h3>
+            <ul>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="YColor" class="YColor" value="cyan">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        cyan
+                    </label>
+                </li>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="YColor" class="YColor" value="magenta">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        magenta
+                    </label>
+                </li>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="YColor" class="YColor" value="yellow" checked="true">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        yellow
+                    </label>
+                </li>
+                <li>
+                    <input type="number" value="1" step="1" id="pStep" class="topcoat-text-input" min="1" max="50">step
+                </li>
+            </ul>    
+            
+        </form>  
+        <button id="createPattern" class="topcoat-button--cta">create pattern</button>
+    </div>
+    <div id="adjustColor">
+        <form name="Csteps">
+            <ul>
+                <li><input type="number" value="0" step="1"class="topcoat-text-input CMYK" id="cyan">cyan</li>
+                <li><input type="number" value="0" step="1"class="topcoat-text-input CMYK" id="magenta">magenta</li>
+                <li><input type="number" value="0" step="1"class="topcoat-text-input CMYK" id="yellow">yellow</li>
+                <li><input type="number" value="0" step="1"class="topcoat-text-input CMYK" id="black">black</li>
+            </ul>
+            <ul>
+
+                <li><input type="number" value="0" step="1" class="topcoat-text-input RGB" id="red">red</li>
+                <li><input type="number" value="0" step="1" class="topcoat-text-input RGB" id="green">green</li>
+                <li><input type="number" value="0" step="1" class="topcoat-text-input RGB" id="blue">blue</li>
+            </ul>
+            
+            <ul>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="space" id="RGB">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        RGB
+                    </label>
+                </li>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="space" id="CMYK">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        CMYK
+                    </label>
+                </li>
+            </ul>
+            
+        </form>
+        <button id="adjust" class="topcoat-button--cta">adjust color</button>
+        <span id="colorSpace"></span>
+    </div>
+    <ul>
+        <li>
+            <label for="" class="topcoat-radio-button">
+                <input type="radio" name="switch" value="createSample" class="switch">
+                <div class="topcoat-radio-button__checkmark"></div>
+                pattern
+        </li>         
+        <li>       
+            <label for="" class="topcoat-radio-button">
+                <input type="radio" name="switch" value="adjustColor" class="switch" checked="true">
+                <div class="topcoat-radio-button__checkmark"></div>
+                adjust
+            </label>
+        </li>
+    </ul>
+    <!-- These are debugging shortcuts.  Class debuglink items only appear in debug mode  -->
+    <span class="debuglink" id="reload">Reload</span>
+    <span class="debuglink" id="debug">Debug</span>
+    <span class="debuglink" id="sources">Sources</span>
+    
+    <script src="js/libs/CSInterface.js"></script>
+
+    <script src="js/themeManager.js"></script>
+    <script src="js/main.js"></script>
+
+        
+</body>
+</html>
