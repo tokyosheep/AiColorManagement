@@ -13,31 +13,40 @@
 
     <div id="createSample" class="hide">        
         
-        <form name="colorData">
+        <form name="colorData" class="CMYK">
+            <div class="CMYK-CMYKList">
             <h3>Xaxes</h3>
-            <ul>
-                <li>
-                    <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="XColor" class="XColor" value="cyan">
-                        <div class="topcoat-radio-button__checkmark"></div>
-                        cyan
-                    </label>
-                </li>
-                <li>
-                    <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="XColor" class="XColor" value="magenta" checked="true">
-                        <div class="topcoat-radio-button__checkmark"></div>
-                        magenta
-                    </label>
-                </li>
-                <li>
-                    <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="XColor" class="XColor" value="yellow">
-                        <div class="topcoat-radio-button__checkmark"></div>
-                        yellow
-                    </label>
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        <label for="" class="topcoat-radio-button">
+                            <input type="radio" name="XColor" class="XColor" value="cyan">
+                            <div class="topcoat-radio-button__checkmark"></div>
+                            cyan
+                        </label>
+                    </li>
+                    <li>
+                        <label for="" class="topcoat-radio-button">
+                            <input type="radio" name="XColor" class="XColor" value="magenta" checked="true">
+                            <div class="topcoat-radio-button__checkmark"></div>
+                            magenta
+                        </label>
+                    </li>
+                    <li>
+                        <label for="" class="topcoat-radio-button">
+                            <input type="radio" name="XColor" class="XColor" value="yellow">
+                            <div class="topcoat-radio-button__checkmark"></div>
+                            yellow
+                        </label>
+                    </li>
+                    <li>
+                        <input type="number" value="1" step="1" id="XStep" class="topcoat-text-input" min="1" max="50">step
+                    </li>
+                    <li>
+                        <input type="number" value="30" step="1" id="Xnum" class="topcoat-text-input" min="5" max="50">number
+                    </li>
+                </ul>
+            </div> 
+            <div class="CMYK-CMYKList">
             <h3>Yaxes</h3>
             <ul>
                 <li>
@@ -62,11 +71,58 @@
                     </label>
                 </li>
                 <li>
-                    <input type="number" value="1" step="1" id="pStep" class="topcoat-text-input" min="1" max="50">step
+                    <input type="number" value="1" step="1" id="YStep" class="topcoat-text-input" min="1" max="50">step
+                </li>
+                <li>
+                    <input type="number" value="30" step="1" id="Ynum" class="topcoat-text-input" min="5" max="50">number
                 </li>
             </ul>    
-            
+        </div>
+        <div class="CMYK-CMYKList">
+            <h3>Zaxes</h3>
+            <ul>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="ZColor" class="ZColor" value="cyan">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        cyan
+                    </label>
+                </li>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="ZColor" class="ZColor" value="magenta">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        magenta
+                    </label>
+                </li>
+                <li>
+                    <label for="" class="topcoat-radio-button">
+                        <input type="radio" name="ZColor" class="ZColor" value="yellow" checked="true">
+                        <div class="topcoat-radio-button__checkmark"></div>
+                        yellow
+                    </label>
+                </li>
+                <li>
+                    <input type="number" value="1" step="1" id="ZStep" class="topcoat-text-input" min="1" max="50">step
+                </li>
+                <li>
+                    <input type="number" value="30" step="1" id="Znum" class="topcoat-text-input" min="5" max="50">number
+                </li>
+            </ul>    
+        </div>    
         </form>  
+        <form name="ColorType">
+            <label for="" class="topcoat-radio-button">
+                <input type="radio" name="ColorType"　checked="true">
+                <div class="topcoat-radio-button__checkmark"></div>
+                CMYK
+            </label>
+            <label for="" class="topcoat-radio-button">
+                <input type="radio" name="ColorType">
+                <div class="topcoat-radio-button__checkmark"></div>
+                RGB
+            </label>
+        </form>
         <button id="createPattern" class="topcoat-button--cta">create pattern</button>
     </div>
     <div id="adjustColor">

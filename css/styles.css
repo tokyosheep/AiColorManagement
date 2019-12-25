@@ -4,6 +4,12 @@
     margin: 10px;
 }
 
+ul{
+    padding: 0;
+}
+ul li{
+    list-style: none;
+}
 
 #content {
     margin-right:auto;
@@ -50,4 +56,14 @@ by the settings of the CC application
     font-family:inherit;
     color:inherit;
     font-size:inherit;
+}
+
+form[name=colorData]{
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.CMYK-CMYKList{
+    width: 150px;
 }
