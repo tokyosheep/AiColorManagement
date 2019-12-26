@@ -48,6 +48,7 @@ Square.prototype.setColor = function(item,Xnum,Ynum,Xcolor,Ycolor){
     }
 }
 
+/*
 function createPattern(obj){
     var point = 0.352778;
     var mm = 2.834645;
@@ -68,4 +69,17 @@ function createPattern(obj){
         }
     }
     return true;
+}
+*/
+
+function createPattern(obj){
+    var point = 0.352778;
+    var mm = 2.834645;
+    var select = app.activeDocument.selection[0];
+    if(!select)return false;
+    var step = 55*mm;
+}
+
+function getAxes(obj){
+
 }

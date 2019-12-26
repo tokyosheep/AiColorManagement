@@ -7,6 +7,7 @@ window.onload = () =>{
     csInterface.evalScript(`$.evalFile("${extensionRoot}json2.js")`);//json2読み込み
     const json_path = extensionRoot + "data.json";
     const ButtonEvent = require(`${__dirname}/js/import/ButtonEvent`);
+    const SwitchButton = require(`${__dirname}/js/import/switchButton`);
 
     const createSample = document.getElementById("createSample");
     const colorSpace = document.getElementById("colorSpace");
@@ -15,6 +16,11 @@ window.onload = () =>{
     const CMYK = document.getElementById("CMYK");
     const adjust = document.getElementById("adjust");
     const createPattern = document.getElementById("createPattern");
+    const switchCMYK = document.getElementById("switchCMYK");
+    const switchRGB = document.getElementById("switchRGB");
+
+    const switchTypeCMYK = new SwitchButton(switchCMYK,Array.from(document.getElementsByClassName("cList")));
+    const switchTypeRGB = new SwitchButton(switchRGB,Array.from(document.getElementsByClassName("cList")));
 
     events.forEach(event=>{
         csInterface.addEventListener(event,(e)=>{
@@ -31,6 +37,7 @@ window.onload = () =>{
         });
     }
 
+    /*
     class CreateColors extends ButtonEvent{
         constructor(btn,jsx){
             super(btn,jsx);
@@ -50,6 +57,55 @@ window.onload = () =>{
             const res = await this.callHostScript(object);
             console.log(res);
         }
+    }
+    */
+    class ColorAxes{
+        constructor(className,step,num){
+            this.class = Array.from(className);
+            this.step = step;
+            this.num = num;
+        }
+
+        getColorData(){
+            const elm = this.class.find(radio=> radio.checked === true);
+            const obj = {};
+            obj[elm.name] = elm.value;
+            obj.num = this.num.value;
+            obj.step = this.step.value;
+            return obj;
+        }
+    }
+
+    class PetternLists{
+        constructor(className){
+            this.class = Array.from(document.getElementsByClassName(className));
+        }
+
+        getColorList(){
+            console.log(this.class);
+            const lists = this.class.reduce((acc,current)=>{
+                const obj = {};
+                const step = current.getElementsByClassName("step")[0];
+                const num = current.getElementsByClassName("num")[0];
+                const data = new ColorAxes(current.getElementsByClassName("patternForm-axes"),step,num);
+                obj[current.getElementsByTagName("h3")[0].textContent] = data.getColorData();
+                acc.push(obj);
+                return acc;
+            },[]);
+            console.log(lists);
+        }
+    }
+
+    class CreateColors extends ButtonEvent{
+         constructor(btn,jsx){
+             super(btn,jsx);
+         }
+ 
+         async handleEvent(){
+            console.log(document.forms.ColorType.patternSwitch.value);
+            this.lists = new PetternLists(document.forms.ColorType.patternSwitch.value);
+            this.lists.getColorList();
+         }
     }
 
     const cc = new  CreateColors(createPattern,"createPattern");

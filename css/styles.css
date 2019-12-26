@@ -64,6 +64,6 @@ form[name=colorData]{
     flex-wrap: wrap;
 }
 
-.CMYK-CMYKList{
+.patternForm-CMYKList .patternForm-RGBList{
     width: 150px;
 }
