@@ -3,6 +3,8 @@ window.onload = () =>{
     const csInterface = new CSInterface();
     themeManager.init();
 
+    const fs = require("fs");
+
     const extensionRoot = csInterface.getSystemPath(SystemPath.EXTENSION) +`/jsx/`;
     csInterface.evalScript(`$.evalFile("${extensionRoot}json2.js")`);//json2読み込み
     const json_path = extensionRoot + "data.json";
@@ -84,15 +86,14 @@ window.onload = () =>{
         getColorList(){
             console.log(this.class);
             const lists = this.class.reduce((acc,current)=>{
-                const obj = {};
                 const step = current.getElementsByClassName("step")[0];
                 const num = current.getElementsByClassName("num")[0];
                 const data = new ColorAxes(current.getElementsByClassName("patternForm-axes"),step,num);
-                obj[current.getElementsByTagName("h3")[0].textContent] = data.getColorData();
-                acc.push(obj);
+                acc[current.getElementsByTagName("h3")[0].textContent] = data.getColorData();
                 return acc;
-            },[]);
+            },{});
             console.log(lists);
+            return lists;
         }
     }
 
@@ -104,7 +105,16 @@ window.onload = () =>{
          async handleEvent(){
             console.log(document.forms.ColorType.patternSwitch.value);
             this.lists = new PetternLists(document.forms.ColorType.patternSwitch.value);
-            this.lists.getColorList();
+            const options = this.lists.getColorList();
+            options.type = returnType(document.forms.ColorType.patternSwitch.value);
+            await writeJSON(options).catch(err => console.log(err));
+            const res = await this.callHostScript(options);
+            console.log(res);
+            function returnType(value){
+                if(value==="patternForm-CMYKList")return "CMYK";
+                if(value==="patternForm-RGBList")return "RGB";
+                return false;
+            }
          }
     }
 
@@ -146,5 +156,16 @@ window.onload = () =>{
                 }
             }
         });
-    })
+    });
+
+    function writeJSON(obj){
+        return new Promise((resolve,reject)=>{
+            fs.writeFile(json_path,JSON.stringify(obj,null,4),(err)=>{//デバッグ用にjson書き出し
+                if(err){
+                    reject(err);
+                }
+                resolve(true);
+            });
+        });
+    }
 }

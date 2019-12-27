@@ -23,29 +23,41 @@ function adjustColor(color){
 }
 /*==================================================*/
 
-var Square = function(item,num,mm){
+var Square = function(select,num,mm){
+    this.select = select
     this.size = 50 * mm;
     this.item = activeDocument.activeLayer.pathItems.rectangle(
-        /*item.top*/item.top,
-        /*item.left*/item.left,
+        /*item.top*/select.top,
+        /*item.left*/select.left,
         this.size,
         this.size);
-    this.filled = true;
-    this.stroke = false;
+    this.item.filled = true;
+    $.writeln(this.item.fillColor.typename);
+    this.item.stroke = false;
 }
 
-Square.prototype.setColor = function(item,Xnum,Ynum,Xcolor,Ycolor){
+Square.prototype.setColor = function(Xnum,Ynum,Znum,Xcolor,Ycolor,Zcolor,type){
+    var max = 100;
+    $.writeln(Xcolor);
+    if(type==="RGB")max = 255;
+    if(type==="CMYK")max = 100;
     try{
-        this.item.fillColor[Xcolor] = MaxAndMin(parseFloat(item.fillColor[Xcolor]) + Xnum);
-        this.item.fillColor[Ycolor] = MaxAndMin(parseFloat(item.fillColor[Ycolor]) + Ynum);
+        this.item.fillColor[Xcolor] = MaxAndMin(parseFloat(this.select.fillColor[Xcolor]) + Xnum,max);
+        this.item.fillColor[Ycolor] = MaxAndMin(parseFloat(this.select.fillColor[Ycolor]) + Ynum,max);
+        this.item.fillColor[Zcolor] = MaxAndMin(parseFloat(this.select.fillColor[Zcolor]) + Znum,max);
     }catch(e){
-        $.writeln(e);
+        //$.writeln(e);
     }
-    function MaxAndMin(num){
-        if(num > 100)num = 100;
+    function MaxAndMin(num,max){
+        if(num > max)num = max;
         if(num < 1)num = 1;
         return num;
     }
+}
+
+Square.prototype.setPosition = function(y,x,z,step){
+    this.item.top = parseFloat(this.select.top)+((z+y)*step);
+    this.item.left = parseFloat(this.select.left)+((z+x)*step);
 }
 
 /*
@@ -58,9 +70,6 @@ function createPattern(obj){
     var step = 55*mm;
     var cStep = obj.step;
     for(var x=-1*range;x<range;x++){
-        //var sq = new Square(select,x,mm);
-        //sq.setColor(select,x*cStep,obj.XColor);
-        //sq.item.left = parseFloat(select.left)+(x*step);
         for(var y=-1*range;y<range;y++){
             var sqt = new Square(select,y,mm);
             sqt.setColor(select,x*cStep,y*cStep,obj.XColor,obj.YColor);
@@ -72,14 +81,69 @@ function createPattern(obj){
 }
 */
 
+var SetAxes = function (obj,select){
+    this.mm = 2.834645;
+    this.obj = obj;
+    this.step = 55*this.mm;
+    this.select = select;
+    this.layers = [];
+}
+
+SetAxes.prototype.ZAxes = function(){
+    for(var z=-1*this.obj.Zaxes.num+1;z<this.obj.Zaxes.num;z++){
+        this.layers.push(app.activeDocument.layers.add());
+        this.YAxes(z);
+    }
+}
+
+SetAxes.prototype.YAxes = function(z){
+    for(var y=-1*this.obj.Yaxes.num+1;y<this.obj.Yaxes.num;y++){
+         this.XAxes(y,z);
+    }
+}
+
+SetAxes.prototype.XAxes = function(y,z){
+    for(var x=-1*this.obj.Xaxes.num+1;x<this.obj.Xaxes.num;x++){
+        var sqt = new Square(this.select,y,this.mm);
+
+        sqt.setColor(x*this.obj.Xaxes.step,
+        y*this.obj.Yaxes.step,
+        z*this.obj.Zaxes.step,
+        this.obj.Xaxes.XColor,
+        this.obj.Yaxes.YColor,
+        this.obj.Zaxes.ZColor,
+        this.obj.type
+        );
+
+        sqt.setPosition(y,x,(z*1.5),this.step);
+    }
+}
+
 function createPattern(obj){
-    var point = 0.352778;
-    var mm = 2.834645;
     var select = app.activeDocument.selection[0];
     if(!select)return false;
-    var step = 55*mm;
+    var setPattern = new SetAxes(obj,select);
+    setPattern.ZAxes();
+    return true;
 }
 
-function getAxes(obj){
-
+var obj = {
+    "Xaxes": {
+        "Xcolor": "red",
+        "num": "5",
+        "step": "36"
+    },
+    "Yaxes": {
+        "Ycolor": "green",
+        "num": "5",
+        "step": "36"
+    },
+    "Zaxes": {
+        "Zcolor": "blue",
+        "num": "2",
+        "step": "7"
+    },
+    "type": "RGB"
 }
+createPattern(obj);
+
