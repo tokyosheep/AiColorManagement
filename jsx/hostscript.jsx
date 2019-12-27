@@ -60,26 +60,6 @@ Square.prototype.setPosition = function(y,x,z,step){
     this.item.left = parseFloat(this.select.left)+((z+x)*step);
 }
 
-/*
-function createPattern(obj){
-    var point = 0.352778;
-    var mm = 2.834645;
-    var select = app.activeDocument.selection[0];
-    if(!select)return false;
-    var range = 13;
-    var step = 55*mm;
-    var cStep = obj.step;
-    for(var x=-1*range;x<range;x++){
-        for(var y=-1*range;y<range;y++){
-            var sqt = new Square(select,y,mm);
-            sqt.setColor(select,x*cStep,y*cStep,obj.XColor,obj.YColor);
-            sqt.item.top = parseFloat(select.top)+(y*step);
-            sqt.item.left = parseFloat(select.left)+(x*step);
-        }
-    }
-    return true;
-}
-*/
 
 var SetAxes = function (obj,select){
     this.mm = 2.834645;
@@ -120,13 +100,31 @@ SetAxes.prototype.XAxes = function(y,z){
 }
 
 function createPattern(obj){
+    if(!matchColorSpace(obj.type)){
+        alert("you should match color space");
+        return false;
+    }
     var select = app.activeDocument.selection[0];
-    if(!select)return false;
+    if(!select){
+        alert("you should select an item");
+        return false;
+    }
     var setPattern = new SetAxes(obj,select);
     setPattern.ZAxes();
     return true;
 }
 
+function matchColorSpace(type){
+    var docSpace = app.activeDocument.documentColorSpace.toString();
+    var space = docSpace.match(/(cmyk|rgb)/i);
+    if((space[0].toUpperCase() === type)||space[0].toUpperCase()=== type){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+/*
 var obj = {
     "Xaxes": {
         "Xcolor": "red",
@@ -146,4 +144,4 @@ var obj = {
     "type": "RGB"
 }
 createPattern(obj);
-
+*/

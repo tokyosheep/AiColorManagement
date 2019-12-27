@@ -10,10 +10,12 @@
 </head>
 
 <body class="hostElt">
-
-    <div id="createSample" class="hide">        
-        
-        <form name="colorData" class="patternForm">
+    <header>
+        <button id="writeData" class="topcoat-button">write data</button>
+        <span id="colorSpace"></span>
+    </header>
+    <div id="createSample" class="hide main">        
+        <form name="colorDataCMYK" class="patternForm">
             <div class="patternForm-CMYKList cList">
             <h3>Xaxes</h3>
                 <ul>
@@ -110,26 +112,28 @@
                 </li>
             </ul>    
         </div>    
+     </form>
+     <form name="colorDataRGB"> 
         <div class="patternForm-RGBList hide cList">
             <h3>Xaxes</h3>
             <ul>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Xcolor" class="XColorRGB patternForm-axes" value="red" checked="true">
+                        <input type="radio" name="XColor" class="XColorRGB patternForm-axes" value="red" checked="true">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Red
                     </label>
                 </li>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Xcolor" class="XColorRGB patternForm-axes" value="green">
+                        <input type="radio" name="XColor" class="XColorRGB patternForm-axes" value="green">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Green
                     </label>
                 </li>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Xcolor" class="XColorRGB patternForm-axes" value="blue">
+                        <input type="radio" name="XColor" class="XColorRGB patternForm-axes" value="blue">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Blue
                     </label>
@@ -147,21 +151,21 @@
             <ul>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Ycolor" class="YColorRGB patternForm-axes" value="red">
+                        <input type="radio" name="YColor" class="YColorRGB patternForm-axes" value="red">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Red
                     </label>
                 </li>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Ycolor" class="YColorRGB patternForm-axes" value="green" checked="true">
+                        <input type="radio" name="YColor" class="YColorRGB patternForm-axes" value="green" checked="true">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Green
                     </label>
                 </li>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Ycolor" class="YColorRGB patternForm-axes" value="blue">
+                        <input type="radio" name="YColor" class="YColorRGB patternForm-axes" value="blue">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Blue
                     </label>
@@ -179,21 +183,21 @@
             <ul>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Zcolor" class="ZColorRGB patternForm-axes" value="red">
+                        <input type="radio" name="ZColor" class="ZColorRGB patternForm-axes" value="red">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Red
                     </label>
                 </li>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Zcolor" class="ZColorRGB patternForm-axes" value="green">
+                        <input type="radio" name="ZColor" class="ZColorRGB patternForm-axes" value="green">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Green
                     </label>
                 </li>
                 <li>
                     <label for="" class="topcoat-radio-button">
-                        <input type="radio" name="Zcolor" class="ZColorRGB patternForm-axes" value="blue" checked="true">
+                        <input type="radio" name="ZColor" class="ZColorRGB patternForm-axes" value="blue" checked="true">
                         <div class="topcoat-radio-button__checkmark"></div>
                         Blue
                     </label>
@@ -221,7 +225,7 @@
         </form>
         <button id="createPattern" class="topcoat-button--cta">create pattern</button>
     </div>
-    <div id="adjustColor">
+    <div id="adjustColor" class="main">
         <form name="Csteps">
             <ul>
                 <li><input type="number" value="0" step="1"class="topcoat-text-input CMYK" id="cyan">cyan</li>
@@ -255,7 +259,6 @@
             
         </form>
         <button id="adjust" class="topcoat-button--cta">adjust color</button>
-        <span id="colorSpace"></span>
     </div>
     <ul>
         <li>

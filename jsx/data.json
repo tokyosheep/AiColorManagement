@@ -1,18 +1,18 @@
 {
     "Xaxes": {
-        "Xcolor": "red",
+        "XColor": "red",
         "num": "5",
-        "step": "36"
+        "step": "1"
     },
     "Yaxes": {
-        "Ycolor": "green",
+        "YColor": "green",
         "num": "5",
-        "step": "36"
+        "step": "1"
     },
     "Zaxes": {
-        "Zcolor": "blue",
-        "num": "2",
-        "step": "7"
+        "ZColor": "blue",
+        "num": "1",
+        "step": "1"
     },
     "type": "RGB"
 }

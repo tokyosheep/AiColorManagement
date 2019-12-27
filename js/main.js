@@ -39,28 +39,6 @@ window.onload = () =>{
         });
     }
 
-    /*
-    class CreateColors extends ButtonEvent{
-        constructor(btn,jsx){
-            super(btn,jsx);
-        }
-
-        async handleEvent(){
-            const object = [Array.from(document.getElementsByClassName("XColor")),
-                            Array.from(document.getElementsByClassName("YColor"))].reduce((acc,current)=>{
-                                const elm = current.find(v=>{
-                                    return v.checked === true;
-                                });
-                                acc[elm.name] = elm.value;
-                                return acc;
-                            },{});
-            object.step = document.getElementById("pStep").value;                
-            console.log(object);                
-            const res = await this.callHostScript(object);
-            console.log(res);
-        }
-    }
-    */
     class ColorAxes{
         constructor(className,step,num){
             this.class = Array.from(className);
@@ -107,7 +85,7 @@ window.onload = () =>{
             this.lists = new PetternLists(document.forms.ColorType.patternSwitch.value);
             const options = this.lists.getColorList();
             options.type = returnType(document.forms.ColorType.patternSwitch.value);
-            await writeJSON(options).catch(err => console.log(err));
+            //await writeJSON(options).catch(err => console.log(err));
             const res = await this.callHostScript(options);
             console.log(res);
             function returnType(value){
@@ -141,22 +119,30 @@ window.onload = () =>{
         }
     }
 
+    
+
     const callAdjust = new AdjustColors(adjust,"adjustColor");
 
     Array.from(document.getElementsByClassName("switch")).forEach(elm=>{
         elm.addEventListener("click",function(){
-            console.log(this);
             if(this.checked){
-                if(this.value === "createSample"){
-                    createSample.classList.remove("hide");
-                    adjustColor.classList.add("hide");
-                }else{
-                    createSample.classList.add("hide");
-                    adjustColor.classList.remove("hide");
-                }
+                createSample.classList.toggle("hide");
+                adjustColor.classList.toggle("hide");
             }
         });
     });
+
+    class CallwriteJsx extends ButtonEvent{
+        constructor(btn,jsx){
+            super(btn,jsx);
+        }
+
+        async handleEvent(){
+            const res = await this.callJsx().catch(e=>console.log(e));
+            console.log(res);
+        }
+    }
+    const wirteDown = new CallwriteJsx(document.getElementById("writeData"),"addColorData.jsx");
 
     function writeJSON(obj){
         return new Promise((resolve,reject)=>{

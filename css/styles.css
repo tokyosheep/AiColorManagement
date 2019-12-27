@@ -58,7 +58,7 @@ by the settings of the CC application
     font-size:inherit;
 }
 
-form[name=colorData]{
+form[name=colorDataCMYK] ,form[name=colorDataRGB]{
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
