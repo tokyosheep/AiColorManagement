@@ -104,18 +104,18 @@ window.onload = () =>{
         }
 
         async handleEvent(){
-            const type = this.getColorType(colorSpace.textContent);
+            const type = this.getColorType();
             if(!type) return;
             const options = this.getOptions(type,"value");
             console.log(options);
-            const res = await this.callHostScript(options);
+            const res = await this.callHostScript({opt:options,type:type});
             console.log(res);
         }
 
-        getColorType(space){
-            if(space === "DocumentColorSpace.CMYK")return "CMYK";
-            if(space === "DocumentColorSpace.RGB") return "RGB";
-            return false;
+        getColorType(){
+           const check = Array.from(document.getElementsByClassName("adJustSpace")).find(elm => elm.checked === true);
+           console.log(check.id);
+           return check.id;
         }
     }
 

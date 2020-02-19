@@ -1,22 +1,31 @@
-var FillColor = function(item,color){
+var FillColor = function(item,color,type){
     this.item = item;
     this.color = color;
+    this.max = 100;
+    if(type === "RGB")this.max = 255;
 }
 
 FillColor.prototype.adjust = function(){
     for(var key in this.color){
         try{
-            this.item.fillColor[key] = parseFloat(this.item.fillColor[key]) + parseFloat(this.color[key]);
+            this.item.fillColor[key] = setMaxMin(parseFloat(this.item.fillColor[key]) + parseFloat(this.color[key]),this.max);
         }catch(e){
-            return;
+            continue;
         }
+    }
+    function setMaxMin(num,max){
+        if(max<num)return max;
+        if(1>num)return 0;
+        return num;
     }
 }
 
-function adjustColor(color){
+function adjustColor(objects){
+    var color = objects.opt;
+    var type = objects.type;
     var selects = app.activeDocument.selection;
     for(var i=0;i<selects.length;i++){
-        var fill = new FillColor(selects[i],color);
+        var fill = new FillColor(selects[i],color,type);
         fill.adjust();
     }
     return true;
@@ -50,7 +59,7 @@ Square.prototype.setColor = function(Xnum,Ynum,Znum,Xcolor,Ycolor,Zcolor,type){
     }
     function MaxAndMin(num,max){
         if(num > max)num = max;
-        if(num < 1)num = 1;
+        if(num < 1)num = 0;
         return num;
     }
 }
