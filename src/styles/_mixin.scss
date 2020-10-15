@@ -1,0 +1,12 @@
+@mixin flex-std($content:flex-start,$wrap:wrap){
+    display: flex;
+    justify-content: $content;
+    flex-wrap: $wrap;
+}
+
+@mixin onCenter($top:50%,$left:50%,$transX:-50%,$transY:-50%,$add:null){
+    position: absolute;
+    top: $top;
+    left: $left;
+    transform: translate($transX , $transY) $add;
+}

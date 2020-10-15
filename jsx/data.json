@@ -1,18 +1,1 @@
-{
-    "Xaxes": {
-        "XColor": "red",
-        "num": "5",
-        "step": "1"
-    },
-    "Yaxes": {
-        "YColor": "green",
-        "num": "5",
-        "step": "1"
-    },
-    "Zaxes": {
-        "ZColor": "blue",
-        "num": "1",
-        "step": "1"
-    },
-    "type": "RGB"
-}
+{"type":"CMYK","name":"color","color":{"cyan":"90","magenta":0,"yellow":0,"black":0}}

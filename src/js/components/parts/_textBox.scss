@@ -1,0 +1,61 @@
+@import "../../../styles/globalValues";
+
+@each $color in $colorList{
+    .number-#{$color}{
+        border-bottom: 1px solid setLineColor($color);
+        border-right: 1px solid setLineColor($color);
+    }
+}
+
+.number-color{
+    padding: 5px;
+    width: 110px;
+    border-radius: 3px;
+    background: lighten($bgColor,5%);
+    display: inline-block;
+    margin-bottom: 5px;
+    .number-color__input{
+        border: none;
+        background: $bgColor;
+        color: #ffffff;
+    }
+
+    .number-color__name{
+        color: #ffffff;
+    }
+    
+}
+
+.number-std{
+    border-bottom: 1px solid #fff;
+    .number-std__input{
+        width: 30px;
+        border: none;
+        background: rgba(0,0,0,0);
+        color: #ffffff;
+    }
+    .number-std__name{
+        color: #ffffff;
+    }
+}
+
+.textBox-std{
+    border: 1px solid #999;
+    border-bottom: 1px solid #fff;
+    border-radius: 3px;
+    background: darken($bgColor,2%);
+    margin: 5px 0px;
+    padding: 2px;
+    display: inline-block;
+    .textBox-std__input{
+        border: none;
+        width: 50px;
+        background: rgba(0,0,0,0.5);
+        color: #ffffff;
+    }
+    .textBox-std__name{
+        color: #ffffff;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+}

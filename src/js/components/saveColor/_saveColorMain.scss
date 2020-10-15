@@ -1,0 +1,25 @@
+.saveColorMain{
+    padding: 5px;
+}
+
+.saveColorMain__colorList{
+    @include flex-std();
+    & > li{
+        margin-right: 15px;
+        margin-bottom: 15px;
+        padding: 10px;
+        background: rgb(30, 30, 34);
+        box-shadow: 3px 3px 3px 2px rgba(0,0,0,0.5);
+    }
+}
+
+.colorContainer__colors{
+    margin-top: 10px;
+}
+
+.colorContainer__buttons{
+    li{
+        display: block;
+        margin-bottom: 7px;
+    }
+}

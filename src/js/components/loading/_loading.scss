@@ -1,0 +1,67 @@
+$barList:"red","yellow","orange","magenta","pink","blue";
+
+#loadingPanel{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    left: 0;
+    top: 0;
+    .bars{
+        @include onCenter();
+        width: 100px;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        li{
+            width: 10px;
+            height: 100%;
+            background: #fff;
+            transform: scaleY(0.2);
+        }
+        @for $i from 1 through 6{
+            li:nth-child(#{$i}){
+                background: #{nth($barList,$i)};
+                animation: stretching 0.8s #{$i/10}s ease infinite ;
+            }
+        }
+    }
+
+    .loading__text{
+        @include onCenter($top:100%,$transY:10%);
+        font-size: 25px;
+        @for $i from 1 through 7{
+            span:nth-child(#{$i}){
+                animation: fading 0.8s #{$i/10}s ease infinite;
+            }
+        }
+    }
+}
+
+@keyframes stretching{
+    0%{
+        transform: scaleY(0.2);
+    }
+
+    50%{
+        transform: scaleY(1);
+    }
+
+    100%{
+        transform: scaleY(0.2);
+    }
+}
+
+@keyframes fading{
+    0%{
+        opacity: 0.2;
+    }
+
+    50%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0.2;
+    }
+}
