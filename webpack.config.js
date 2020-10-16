@@ -1,5 +1,5 @@
 "use strict";
-const mode = "development";
+const mode = "production";
 const nodeExternals = require("webpack-node-externals");
 const enabledSourceMap = mode === "development";
 const TerserPlugin = require("terser-webpack-plugin");
