@@ -9,12 +9,12 @@
 
 .number-color{
     padding: 5px;
-    width: 120px;
+    width: 125px;
     border-radius: 3px;
     background: lighten($bgColor,5%);
     display: inline-block;
     margin-bottom: 5px;
-    font-size: 12px;
+    font-size: 11px;
     .number-color__input{
         border: none;
         background: $bgColor;
