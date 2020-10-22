@@ -1,6 +1,68 @@
+/*
+  connect is a facade over connectAdvanced. It turns its args into a compatible
+  selectorFactory, which has the signature:
+
+    (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
+  
+  connect passes its args to connectAdvanced as options, which will in turn pass them to
+  selectorFactory each time a Connect component instance is instantiated or hot reloaded.
+
+  selectorFactory returns a final props selector from its mapStateToProps,
+  mapStateToPropsFactories, mapDispatchToProps, mapDispatchToPropsFactories, mergeProps,
+  mergePropsFactories, and pure args.
+
+  The resulting final props selector is called by the Connect component instance whenever
+  it receives new props or store state.
+ */
+
+/*
+  selectorFactory is a func that is responsible for returning the selector function used to
+  compute new props from state, props, and dispatch. For example:
+      export default connectAdvanced((dispatch, options) => (state, props) => ({
+      thing: state.things[props.thingId],
+      saveThing: fields => dispatch(actionCreators.saveThing(props.thingId, fields)),
+    }))(YourComponent)
+    Access to dispatch is provided to the factory so selectorFactories can bind actionCreators
+  outside of their selector as an optimization. Options passed to connectAdvanced are passed to
+  the selectorFactory, along with displayName and WrappedComponent, as the second argument.
+    Note that selectorFactory is responsible for all caching/memoization of inbound and outbound
+  props. Do not use connectAdvanced directly without memoizing results between calls to your
+  selector, otherwise the Connect component will re-render on every state or props change.
+*/
+
+/*
+ Modernizr 3.0.0pre (Custom Build) | MIT
+*/
+
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
 /* 0 */
 
 /* 1 */
+
+/* 10 */
+
+/* 11 */
+
+/* 12 */
+
+/* 13 */
+
+/* 14 */
+
+/* 15 */
+
+/* 16 */
+
+/* 17 */
+
+/* 18 */
+
+/* 19 */
 
 /* 2 */
 
@@ -14,9 +76,293 @@
 
 /* 7 */
 
+/* 8 */
+
+/* 9 */
+
+/* WEBPACK VAR INJECTION */
+
+/* eslint-disable import/no-unresolved */
+
+/* eslint-disable no-unused-vars */
+
+/* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+
+/* global window */
+
 /* harmony default export */
 
+/* harmony export (binding) */
+
+/* harmony import */
+
+/*#__PURE__*/
+
+/**
+       * The minimal observable subscription method.
+       * @param {Object} observer Any object that can be used as an observer.
+       * The observer object should have a `next` method.
+       * @returns {subscription} An object with an `unsubscribe` method that can
+       * be used to unsubscribe the observable from the store, and prevent further
+       * emission of values from the observable.
+       */
+
+/**
+   * Adds a change listener. It will be called any time an action is dispatched,
+   * and some part of the state tree may potentially have changed. You may then
+   * call `getState()` to read the current state tree inside the callback.
+   *
+   * You may call `dispatch()` from a change listener, with the following
+   * caveats:
+   *
+   * 1. The subscriptions are snapshotted just before every `dispatch()` call.
+   * If you subscribe or unsubscribe while the listeners are being invoked, this
+   * will not have any effect on the `dispatch()` that is currently in progress.
+   * However, the next `dispatch()` call, whether nested or not, will use a more
+   * recent snapshot of the subscription list.
+   *
+   * 2. The listener should not expect to see all state changes, as the state
+   * might have been updated multiple times during a nested `dispatch()` before
+   * the listener is called. It is, however, guaranteed that all subscribers
+   * registered before the `dispatch()` started will be called with the latest
+   * state by the time it exits.
+   *
+   * @param {Function} listener A callback to be invoked on every dispatch.
+   * @returns {Function} A function to remove this change listener.
+   */
+
+/**
+   * Dispatches an action. It is the only way to trigger a state change.
+   *
+   * The `reducer` function, used to create the store, will be called with the
+   * current state tree and the given `action`. Its return value will
+   * be considered the **next** state of the tree, and the change listeners
+   * will be notified.
+   *
+   * The base implementation only supports plain object actions. If you want to
+   * dispatch a Promise, an Observable, a thunk, or something else, you need to
+   * wrap your store creating function into the corresponding middleware. For
+   * example, see the documentation for the `redux-thunk` package. Even the
+   * middleware will eventually dispatch plain object actions using this method.
+   *
+   * @param {Object} action A plain object representing “what changed”. It is
+   * a good idea to keep actions serializable so you can record and replay user
+   * sessions, or use the time travelling `redux-devtools`. An action must have
+   * a `type` property which may not be `undefined`. It is a good idea to use
+   * string constants for action types.
+   *
+   * @returns {Object} For convenience, the same action object you dispatched.
+   *
+   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
+   * return something else (for example, a Promise you can await).
+   */
+
+/**
+   * Interoperability point for observable/reactive libraries.
+   * @returns {observable} A minimal observable of state changes.
+   * For more information, see the observable proposal:
+   * https://github.com/tc39/proposal-observable
+   */
+
+/**
+   * Reads the state tree managed by the store.
+   *
+   * @returns {any} The current state tree of your application.
+   */
+
+/**
+   * Replaces the reducer currently used by the store to calculate the state.
+   *
+   * You might need this if your app implements code splitting and you want to
+   * load some of the reducers dynamically. You might also need this if you
+   * implement a hot reloading mechanism for Redux.
+   *
+   * @param {Function} nextReducer The reducer for the store to use instead.
+   * @returns {void}
+   */
+
+/**
+   * This makes a shallow copy of currentListeners so we can use
+   * nextListeners as a temporary list while dispatching.
+   *
+   * This prevents any bugs around consumers calling
+   * subscribe/unsubscribe in the middle of a dispatch.
+   */
+
+/**
+ * @param {any} obj The object to inspect.
+ * @returns {boolean} True if the argument appears to be a plain object.
+ */
+
+/**
+ * A hook to access the redux store's state. This hook takes a selector function
+ * as an argument. The selector is called with the store state.
+ *
+ * This hook takes an optional equality comparison function as the second parameter
+ * that allows you to customize the way the selected state is compared to determine
+ * whether the component needs to be re-rendered.
+ *
+ * @param {Function} selector the selector function
+ * @param {Function=} equalityFn the function that will be used to determine equality
+ *
+ * @returns {any} the selected state
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useSelector } from 'react-redux'
+ *
+ * export const CounterComponent = () => {
+ *   const counter = useSelector(state => state.counter)
+ *   return <div>{counter}</div>
+ * }
+ */
+
+/**
+ * A hook to access the value of the `ReactReduxContext`. This is a low-level
+ * hook that you should usually not need to call directly.
+ *
+ * @returns {any} the value of the `ReactReduxContext`
+ *
+ * @example
+ *
+ * import React from 'react'
+ * import { useReduxContext } from 'react-redux'
+ *
+ * export const CounterComponent = ({ value }) => {
+ *   const { store } = useReduxContext()
+ *   return <div>{store.getState()}</div>
+ * }
+ */
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * Copyright 2015, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */
+
+/**
+ * Creates a Redux store that holds the state tree.
+ * The only way to change the data in the store is to call `dispatch()` on it.
+ *
+ * There should only be a single store in your app. To specify how different
+ * parts of the state tree respond to actions, you may combine several reducers
+ * into a single reducer function by using `combineReducers`.
+ *
+ * @param {Function} reducer A function that returns the next state tree, given
+ * the current state tree and the action to handle.
+ *
+ * @param {any} [preloadedState] The initial state. You may optionally specify it
+ * to hydrate the state from the server in universal apps, or to restore a
+ * previously serialized user session.
+ * If you use `combineReducers` to produce the root reducer function, this must be
+ * an object with the same shape as `combineReducers` keys.
+ *
+ * @param {Function} [enhancer] The store enhancer. You may optionally specify it
+ * to enhance the store with third-party capabilities such as middleware,
+ * time travel, persistence, etc. The only store enhancer that ships with Redux
+ * is `applyMiddleware()`.
+ *
+ * @returns {Store} A Redux store that lets you read the state, dispatch actions
+ * and subscribe to changes.
+ */
+
+/**
+ * Prints a warning in the console if it exists.
+ *
+ * @param {String} message The warning message.
+ * @returns {void}
+ */
+
+/**
+ * These are private action types reserved by Redux.
+ * For any unknown actions, you must return the current state.
+ * If the current state is undefined, you must return the initial state.
+ * Do not reference these action types directly in your code.
+ */
+
+/**
+ * Turns an object whose values are action creators, into an object with the
+ * same keys, but with every function wrapped into a `dispatch` call so they
+ * may be invoked directly. This is just a convenience method, as you can call
+ * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
+ *
+ * For convenience, you can also pass an action creator as the first argument,
+ * and get a dispatch wrapped function in return.
+ *
+ * @param {Function|Object} actionCreators An object whose values are action
+ * creator functions. One handy way to obtain it is to use ES6 `import * as`
+ * syntax. You may also pass a single function.
+ *
+ * @param {Function} dispatch The `dispatch` function available on your Redux
+ * store.
+ *
+ * @returns {Function|Object} The object mimicking the original object, but with
+ * every action creator wrapped into the `dispatch` call. If you passed a
+ * function as `actionCreators`, the return value will also be a single
+ * function.
+ */
+
+/**
+ * Turns an object whose values are different reducer functions, into a single
+ * reducer function. It will call every child reducer, and gather their results
+ * into a single state object, whose keys correspond to the keys of the passed
+ * reducer functions.
+ *
+ * @param {Object} reducers An object whose values correspond to different
+ * reducer functions that need to be combined into one. One handy way to obtain
+ * it is to use ES6 `import * as reducers` syntax. The reducers may never return
+ * undefined for any action. Instead, they should return their initial state
+ * if the state passed to them was undefined, and the current state for any
+ * unrecognized action.
+ *
+ * @returns {Function} A reducer function that invokes every reducer inside the
+ * passed object, and builds a state object with the same shape.
+ */
+
 /** @class */
+
+/** @license React v0.19.1
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
 /************************************************************************/
 
@@ -34,41 +380,247 @@
 
 /*yield*/
 
+//
+
+//    is used by selectorFactory to decide if it should reinvoke on props changes.
+
+//    new function as the true mapToProps for subsequent calls.
+
+//    the developer that their mapToProps function is not returning a valid result.
+
+//  * Detects whether the mapToProps function being called depends on props, which
+
+//  * On first call, handles mapToProps if returns another function, and treats that
+
+//  * On first call, verifies the first result is a plain object, in order to warn
+
+// - However, we may have gotten new wrapper props after that
+
+// - This render may have been triggered by a Redux store update that produced new child props
+
+// A length of one signals that mapToProps does not depend on props from the parent component.
+
+// A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
+
+// Actually run the selector with the most recent store state and wrapper props
+
+// Actually subscribe to the nearest connected ancestor (or store)
+
+// Allow injecting another batching function later
+
+// Any reducers that existed in both the new and old rootReducer
+
+// Avoid failures from read-only properties
+
+// Based on the previous check, one of these must be true
+
+// But, if we have new wrapper props, those might change the child props, so we have to recalculate things.
+
+// By explicitly using `prop-types` you are opting into new production behavior.
+
+// CONCATENATED MODULE: ../node_modules/@babel/runtime/helpers/esm/extends.js
+
+// CONCATENATED MODULE: ../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/components/Provider.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/connect/connect.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/connect/mapDispatchToProps.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/connect/mapStateToProps.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/connect/mergeProps.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/connect/selectorFactory.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/connect/verifySubselectors.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/connect/wrapMapToProps.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/hooks/useReduxContext.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/index.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/utils/batch.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/utils/reactBatchedUpdates.js
+
+// CONCATENATED MODULE: ../node_modules/react-redux/es/utils/shallowEqual.js
+
+// CONCATENATED MODULE: ../node_modules/redux/es/redux.js
+
 // CONCATENATED MODULE: ./js/components/loading/loading.tsx
 
 // CONCATENATED MODULE: ./js/fileSystem/init.js
+
+// CONCATENATED MODULE: ./js/redux/reducer/index.ts
+
+// Capture values for checking if and when this component unmounts
 
 // Check if module is in cache
 
 // Create a new module (and put it into the cache)
 
+// DCE check should happen before ReactDOM bundle executes so that
+
+// Default to a dummy "batch" implementation that just runs the callback
+
+// Detect buggy property enumeration order in older V8 versions.
+
+// DevTools can report bad minification during injection.
+
+// Distinguish between actual "data" props that were passed to the wrapper component,
+
 // ESM COMPAT FLAG
 
-// EXTERNAL MODULE: external "react"
+// EXTERNAL MODULE: ../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
 
-// EXTERNAL MODULE: external "react-dom"
+// EXTERNAL MODULE: ../node_modules/react/index.js
+
+// EXTERNAL MODULE: ../node_modules/symbol-observable/es/index.js
 
 // Execute the module function
 
 // Flag the module as loaded
 
+// If React sees the exact same element reference as last time, it bails out of re-rendering
+
+// If pure is true, the selector returned by selectorFactory will memoize its results,
+
+// If the child props _did_ change (or we caught an error), this wrapper component needs to re-render
+
+// If the child props haven't changed, nothing to do here - cascade the subscription update
+
+// If the render was from a store update, clear out that reference and cascade the subscriber update
+
+// If we aren't running in "pure" mode, we don't want to memoize values.
+
+// If we have new child props, and the same wrapper props, we know we should use the new child props as-is.
+
+// If we're in "pure" mode, ensure our wrapper component only re-renders when incoming props have changed.
+
+// If we're not subscribed to the store, nothing to do here
+
+// Important!
+
+// In that case, throw the error from here so it doesn't get lost.
+
+// It's possible that we caught an error due to a bad mapState function, but the
+
+// Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+
 // Load entry module and return exports
+
+// Memoize the check that determines which context instance we should use.
+
+// Note that we do this because on renders _not_ caused by store updates, we need the latest store state
+
+// Now that all that's done, we can finally try to actually render the child component.
 
 // Object.prototype.hasOwnProperty.call
 
+// Otherwise, put this component's subscription instance into context, so that
+
+// Our re-subscribe logic only runs when the store/subscription setup changes
+
+// Propagate any mapState/mapDispatch errors upwards
+
+// Pull data from the store after first render in case the store has
+
+// Re-create this selector whenever the store changes.
+
+// React v16.11 and below
+
+// React v16.12 and above
+
 // Return the exports of the module
+
+// Save references to the new child props.  Note that we track the "child props from store update"
+
+// Set up refs to coordinate values between the subscription effect and the render logic
+
+// So, we'll use the child props from store update only if the wrapper props are the same as last time.
+
+// TODO We're reading the store directly in render() here. Bad idea?
+
+// TODO: Add more comments
+
+// The child props selector needs the store reference as an input.
 
 // The module cache
 
 // The require function
 
+// This Subscription's source should match where store came from: props vs. context. A component
+
+// This action has a similiar effect to ActionTypes.INIT.
+
+// This is used to make sure we don't warn about the same
+
+// This shouldn't happen as long as we do top-down subscriptions correctly, but
+
+// This will likely cause Bad Things (TM) to happen in Concurrent Mode.
+
+// To avoid conditionally calling hooks, we fall back to a tiny wrapper
+
+// To maintain the wrapperProps object reference, memoize this destructuring.
+
+// Tricky logic here:
+
+// Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
+
+// Users may optionally pass in a custom context instance to use instead of our ReactReduxContext.
+
+// Verify that the code above has been dead code eliminated (DCE'd).
+
+// We don't expect any of the above to throw, but better to be safe.
+
+// We memoize the elements for the rendered child component as an optimization.
+
+// We need this to execute synchronously every time we re-render. However, React warns
+
+// We want to capture the wrapper props and child props we used for later comparisons
+
+// When a store is created, an "INIT" action is dispatched so that every
+
 // __webpack_public_path__
 
+// `notifyNestedSubs` is duplicated to handle the case where the component is unmounted in
+
+// about useLayoutEffect in SSR, so we try to detect environment and fall back to
+
+// allow detectFactoryAndVerify to get ownProps
+
+// allowing connectAdvanced's shouldComponentUpdate to return false if final
+
+// and values needed to control behavior (forwarded refs, alternate context instances).
+
+// as a ref instead of a useState/useReducer because we need a way to determine if that value has
+
+// been processed.  If this went into useState/useReducer, we couldn't clear out the value without
+
+// changed since we began.
+
+// connected descendants won't update until after this component is done
+
+// connected to the store via props shouldn't use subscription from context, or vice versa.
+
 // create a fake namespace object
+
+// createConnect with default args builds the 'official' connect behavior. Calling it with
 
 // define __esModule on exports
 
 // define getter function for harmony exports
+
+// dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
+
+// different options opens up some testing and extensibility scenarios
+
+// don't hoist over string (html) components
+
+// eslint-disable-line no-new-wrappers
 
 // expose the module cache
 
@@ -76,7 +628,23 @@
 
 // extracted by mini-css-extract-plugin
 
+// forcing another re-render, which we don't want.
+
 // getDefaultExport function for compatibility with non-harmony modules
+
+// http://fb.me/prop-types-in-prod
+
+// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+
+// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+
+// if mapStateToProps is falsy, the Connect component doesn't subscribe to store state changes
+
+// if we ever do those wrong, this throw will surface the error in our tests.
+
+// just useEffect instead to avoid the warning, since neither will run anyway.
+
+// keys multiple times.
 
 // mode & 1: value is a module id, require it
 
@@ -86,6 +654,52 @@
 
 // mode & 8|1: behave like require
 
+// module.parent = undefined by default
+
+// object and shouldComponentUpdate will always return true.
+
+// options object:
+
+// parent re-rendered without this component and we're about to unmount.
+
+// passed through to selectorFactory
+
+// probably be avoided if Subscription's listeners logic is changed to not call listeners
+
+// props have not changed. If false, the selector will always return a new
+
+// reducer returns their initial state. This effectively populates
+
+// that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.
+
+// that have been unsubscribed in the  middle of the notification loop.
+
+// that just executes the given callback immediately.
+
+// the initial state tree.
+
+// the middle of the notification loop, where `subscription` will then be null. This can
+
+// the new state tree with any relevant data from the old one.
+
+// therefore not reporting its length accurately..
+
+// this function wraps mapToProps in a proxy function which does several things:
+
+// to determine what the child props should be
+
+// to determine what the child props should be.
+
+// to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
+
+// used in error messages
+
+// used to compute Connect's displayName from the wrapped component's displayName.
+
 // webpackBootstrap
+
+// whether mapToProps needs to be invoked when props have changed.
+
+// will receive the previous state. This effectively populates
 
 //json2読み込み

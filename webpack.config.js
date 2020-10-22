@@ -1,6 +1,5 @@
 "use strict";
 const mode = "production";
-const nodeExternals = require("webpack-node-externals");
 const enabledSourceMap = mode === "development";
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -23,7 +22,6 @@ module.exports = {
         ],
     },
     target:"node",
-    externals:[nodeExternals()],
     context:path.resolve(__dirname,"src"),
     entry:"./js/main.tsx",
     output:{

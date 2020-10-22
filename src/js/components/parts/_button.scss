@@ -60,6 +60,7 @@ $high:255;
     $btnBlue: rgb(69, 69, 136);
     background: $btnBlue;
     box-shadow: 3px 3px 0px darken($btnBlue,30%);
+    color: #ffffff;
     cursor: pointer;
     &:active{
         background: darken($btnBlue,15%);
