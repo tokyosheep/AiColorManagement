@@ -9,10 +9,12 @@ and save color data temporary
 </p>
 
 <img src="./readmeImg/mainPanel.png">
+<img src="./readmeImg/adjustC.gif">
 <p>adjust color you selected. select number how much you adjust each colors.
 click adjust button , selected path items color will be changed</p>
 
 <img src="./readmeImg/createPanel.png">
+<img src="./readmeImg/createPattern.gif">
 <p>it creates color patterns. you select colors for each axe. and how much you'd like patterns and how steps color number you prefer. on option form, you can select origin point of color whether it comes from selected path item or you make from form</p>
 
 <img src="./readmeImg/stragePanel.png">
