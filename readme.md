@@ -12,7 +12,7 @@ and save color data temporary
 <p>adjust color you selected. select number how much you adjust each colors.
 click adjust button , selected path items color will be changed</p>
 
-<img src="./readmeImg/createPanel.ong">
+<img src="./readmeImg/createPanel.png">
 <p>it creates color patterns. you select colors for each axe. and how much you'd like patterns and how steps color number you prefer. on option form, you can select origin point of color whether it comes from selected path item or you make from form</p>
 
 <img src="./readmeImg/stragePanel.png">
@@ -28,5 +28,3 @@ click adjust button , selected path items color will be changed</p>
 <a href="https://install.anastasiy.com/">Anastasiy’s Extension Manager</a>
 
 <a href="https://kawano-shuji.com/justdiary/2020/10/24/extension-aicolormanagement/">Japanese explanation here</a>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FqF5TDs2Dyo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
