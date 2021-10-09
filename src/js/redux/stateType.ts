@@ -1,0 +1,12 @@
+import { CommonBox } from "./reducer/commonColorbox";
+import { ColorBox } from "./commonType";
+import { ProcessType , AdjustOptions } from "./reducer/adjustOptions";
+import { StrageColorBox } from "./reducer/strage";
+
+export type StateType = {
+    commonColorBox:CommonBox,
+    adjustOptions:AdjustOptions,
+    processType:ProcessType,
+    tempStrage:StrageColorBox[]
+};
+

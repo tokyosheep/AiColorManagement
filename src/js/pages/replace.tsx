@@ -9,17 +9,18 @@ import { MainContainer } from "../styles/container";
 const { Container } = MainContainer;
 
 import { WindowProps } from "../components/common/navHead/navHead";
-import { AmountBox } from "../parts/colorBox/commonColorBox";
+import { LoadCommonColor } from "../parts/button/buttons";
 
-const AdjustPage:FC<WindowProps> = (props) =>{
+const ReplacePage:FC<WindowProps> = (props) =>{
+    
     return(
         <Container>
             <NavHead {...props}/>
-            <ColorAside Elm={()=><AmountBox />}/>
             <AdjustMain />
+            <ColorAside Elm={()=><LoadCommonColor />}/>
             <StrageAside />
         </Container>
     )
 }
 
-export default AdjustPage;
+export default ReplacePage;

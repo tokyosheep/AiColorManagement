@@ -1,20 +1,21 @@
-import * as React from "react";
-import {Props} from "../redux/propsType";
+import React,{FC} from "react";
 
-import SideMenu from "../components/sideMenu";
-import Header from "../components/header";
-import SaveColorMain from "../components/saveColor/saveColorMain";
-import Footer from "../components/footer";
+import NavHead from "../components/common/navHead/navHead";
 
-const StrageColor = () =>{
+import StrageMain from "../components/strage/strageMain";
+
+import { StrageContainer } from "../styles/container";
+const { Container } = StrageContainer;
+
+import { WindowProps } from "../components/common/navHead/navHead";
+
+const StragePage:FC<WindowProps> = (props) =>{
     return(
-        <div className="containerStrage">
-            <SideMenu />
-            <Header mode="strage" />
-            <SaveColorMain />
-            <Footer />
-        </div>
+        <Container>
+            <NavHead {...props}/>
+            <StrageMain />
+        </Container>
     )
 }
 
-export default StrageColor;
+export default StragePage;
