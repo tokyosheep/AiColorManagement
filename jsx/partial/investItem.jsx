@@ -1,3 +1,4 @@
+
 function investItem(selects){
     for(var i=0;i<selects.length;i++){
         if(selects[i].pageItems&&selects[i].pageItems.length >0){

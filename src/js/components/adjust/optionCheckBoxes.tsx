@@ -13,12 +13,15 @@ const RadioWrapper = styled.ul`
     padding: 0;
     width: 100%;
     height: auto;
+    & >li{
+        margin-bottom: 5px;
+    }
 `;
 
 export const AdjustRadios = () =>{
     const dispatch = useDispatch();
     const processType = useSelector((state:StateType)=>state.processType);
-    const checkProcess = useCallback((name)=>dispatch(processType_check(name)),[processType]);
+    const checkProcess = useCallback((e,name)=>dispatch(processType_check(name)),[processType]);
     const processList = Object.entries(processType).map(([key,value],i)=>{
         return (
             <li key={i}>
@@ -36,10 +39,10 @@ export const AdjustRadios = () =>{
 export const FillRadios = () =>{
     const dispatch = useDispatch();
     const colorBox = useSelector((state:StateType)=>state.commonColorBox);
-    const handleFill = useCallback((name)=>dispatch(commonColor_fillType(name)),[colorBox]);
+    const handleFill = useCallback((e,name)=>dispatch(commonColor_fillType(name)),[colorBox]);
     const fillList = fills.map((f,i)=>{
         return(
-            <li>
+            <li key={i}>
                 <StdRadioBox checked={colorBox.fill === f} name={f} func={handleFill}/>
             </li>
         )

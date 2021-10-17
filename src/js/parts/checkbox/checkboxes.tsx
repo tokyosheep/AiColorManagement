@@ -3,15 +3,17 @@ import styled from "styled-components";
 
 import { commonGreen } from "../../styles/commonColor";
 import { YAxe } from "../../styles/mixin";
+import { FormBoxWidth } from "../../styles/commonValue";
 
-const StdCheckBoxWrapper = styled.div`
-    width: 150px;
+const StdCheckBoxWrapper = styled.label`
+    width: ${FormBoxWidth}px;
     height: 30px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     position: relative;
     border: 1px solid #000;
+    cursor: pointer;
     & > input{
         display: none;
     }
@@ -38,20 +40,20 @@ const StdSwitchBall = styled.div<{checked:boolean}>`
     border-radius: 50%;
     position: absolute;
     ${YAxe};
-    left: ${props=>props.checked ? "10%" : "90%"};
+    left: ${props=>props.checked ? "-10%" : "60%"};
+    transition: .3s linear;
 `;
 
 type CheckProps = {
     checked:boolean,
     name:string,
     func:(e:React.ChangeEvent<HTMLInputElement>,name:string)=>void
-
 }
 
 export const StdCheckBox:FC<CheckProps> = ({checked,name,func}) =>{
     return(
         <StdCheckBoxWrapper>
-            <input type="checkbox" onChange={(e)=>func(e,name)}/>
+            <input type="checkbox" checked={checked} onChange={(e)=>func(e,name)}/>
             <StdCheckSwitchHole>
                 <StdSwitchBall checked={checked}></StdSwitchBall>
             </StdCheckSwitchHole>

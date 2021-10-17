@@ -1,7 +1,7 @@
 import React,{FC} from "react";
 
 import NavHead from "../components/common/navHead/navHead";
-import AdjustMain from "../components/adjust/adjustMain";
+import ReplaceMain from "../components/replace/main/replaceMain";
 import ColorAside from "../components/common/colorAside/colorAside";
 import StrageAside from "../components/common/strageAside/strageAside";
 
@@ -16,7 +16,7 @@ const ReplacePage:FC<WindowProps> = (props) =>{
     return(
         <Container>
             <NavHead {...props}/>
-            <AdjustMain />
+            <ReplaceMain />
             <ColorAside Elm={()=><LoadCommonColor />}/>
             <StrageAside />
         </Container>

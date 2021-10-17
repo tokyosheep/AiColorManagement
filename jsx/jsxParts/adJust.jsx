@@ -5,6 +5,12 @@ function adjustColor(obj){
         this.max = type === "RGB" ? 255 : 100 ;
     }
 
+    function setMaxMin(num,max){
+        if(max<num)return max;
+        if(1>num)return 0;
+        return num;
+    }
+
     FillColor.prototype.adjust = function(){
         for(var key in this.color){
             try{
@@ -13,11 +19,7 @@ function adjustColor(obj){
                 continue;
             }
         }
-        function setMaxMin(num,max){
-            if(max<num)return max;
-            if(1>num)return 0;
-            return num;
-        }
+        
     }
 
     function investItem(selects){

@@ -1,82 +1,52 @@
 "use strict";
-const mode = "production";
-const enabledSourceMap = mode === "development";
+const mode = "development";
 const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const enabledSourceMap = mode === "production";
 const path = require("path");
 
 module.exports = {
-    mode:mode,
+    // モード値を production に設定すると最適化された状態で、
+    // development に設定するとソースマップ有効でJSファイルが出力される
+    mode: mode,
     devtool:"source-map",
+    /*
     optimization:{
-        minimizer:[
-            new TerserPlugin({
-                extractComments: "all",
-                sourceMap: true,
-                terserOptions:{
-                    compress:{
-                        drop_console:true,//production modeでconsole.log消えます
-                    }
-                }
-            }),
-        ],
+      minimize: enabledSourceMap,
+      minimizer:[
+          new TerserPlugin({
+              extractComments: "all",
+              terserOptions:{
+                  compress:{
+                      drop_console:true,//production modeでconsole.log消えます
+                  }
+              }
+          }),
+      ],
     },
-    target:"node",
-    context:path.resolve(__dirname,"src"),
-    entry:"./js/main.tsx",
-    output:{
-        path:`${__dirname}/dist`,
-        filename:"[name]Min.js"
+    */
+    target:"nwjs",
+    // メインとなるJavaScriptファイル（エントリーポイント）
+    entry: "./src/js/main.tsx",
+    // ファイルの出力設定
+    output: {
+      //  出力ファイルのディレクトリ名
+      path: `${__dirname}/dist`,
+      // 出力ファイル名
+      filename: "main.min.js"
     },
-
-    module:{
-        rules:[
-            {
-                test:/\.tsx?$/,
-                use:"ts-loader"
-            },
-            {
-                test:/\.scss/,
-                use:[
-                    {
-                        loader:MiniCssExtractPlugin.loader,
-                    },
-                    {
-                        loader:"css-loader",
-                        options:{
-                            url:false,//css内で画像をハンドルさせる
-                            sourceMap:enabledSourceMap,
-                        }
-                    },
-                    {
-                        loader:"postcss-loader",
-                        options:{
-                            sourceMap:enabledSourceMap,
-                            postcssOptions:{
-                                plugins:[
-                                    require("autoprefixer")({
-                                        grid:true
-                                    })
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        loader:"sass-loader",
-                        options:{
-                            sourceMap:enabledSourceMap
-                        }
-                    }
-                ]
-            },
-        ]
+    context:path.join(__dirname,"src/js"),
+    entry:{main:"./main"},
+    module: {
+      rules:[
+        {
+          test:/\.tsx?$/,
+          use:"babel-loader",
+          exclude:/node_modules/
+        }
+      ],
     },
-    resolve:{
-        extensions:[".ts",".tsx",".js",".json"]
-    },
-    plugins:[
-        new MiniCssExtractPlugin({
-        filename:"styleMin.css",
-        })
-    ]
-}
+    // import 文で .ts や .tsx ファイルを解決するため
+    resolve: {
+      extensions: [".ts", ".tsx", ".js", ".jsx",".json"],
+    }
+  }

@@ -1,4 +1,5 @@
 import styled,{css} from "styled-components";
+import { rgba , darken } from "polished";
 
 export const CenterPlace = css`
     position: absolute;
@@ -17,4 +18,16 @@ export const XAxe = css`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+`;
+
+export const shineSVG = css<{color:string}>`
+    filter: drop-shadow(0px 0px 3px 3px ${props=>rgba(props.color,0.4)});
+    stroke:${props=> props.color};
+    cursor: pointer;
+    padding: 2px;
+    margin-right:3px;
+    transition: .3s linear;
+    &:active{
+        stroke:${props=> darken(0.2,props.color)};
+    }
 `;

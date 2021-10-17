@@ -1,21 +1,47 @@
-import React from "react";
-import styled,{createGlobalStyle} from "styled-components";
+import React,{FC, useEffect} from "react";
 
+import AdjustPage from "./adjust";
+import CreatePage from "./create";
+
+import ReplacePage from "./replace";
+import StragePage from "./strage";
+
+import LoadingPanel from "../components/common/loading/loading";
+
+import { WindowProps } from "../components/common/navHead/navHead";
 import useWindow from "./customHooks/windowMode";
 
-const GlobalStyle = createGlobalStyle`
-    body{
-        margin: 0;
-        font-family: "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
-        background: #fff;
+import { init , prevent_drag_event } from "../fileSystem/init";
+
+const setPageElement:(props:WindowProps)=>JSX.Element = props =>{
+    switch(props.mode){
+        case "Adjust":
+            return <AdjustPage {...props} />;
+
+        case "Create":
+            return <CreatePage {...props} />;
+
+        case "Replace":
+            return <ReplacePage {...props} />;
+
+        case "Strage":
+            return <StragePage {...props} />;
+
+        default:
+            return <AdjustPage {...props} />;
     }
-`;
+}
 
 const Layout = () =>{
     const [window,setWindow] = useWindow();
+    useEffect(()=>{
+        prevent_drag_event();
+        init();
+    },[]);
     return(
         <>
-            <GlobalStyle />
+            <LoadingPanel />
+            {setPageElement({mode:window,func:setWindow})}
         </>
     )
 }

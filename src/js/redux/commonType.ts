@@ -64,3 +64,10 @@ export const setColorCSS:(key:keyof CMYK|keyof RGB)=>string = key =>{
             return "#000";
     }
 }
+
+export type ExportedObjType = {
+    color:CMYK|RGB,
+    space:"RGB"|"CMYK",
+    isSpot:boolean,
+    name:string|null
+}

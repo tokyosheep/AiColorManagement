@@ -9,13 +9,13 @@ import { MainContainer } from "../styles/container";
 const { Container } = MainContainer;
 
 import { WindowProps } from "../components/common/navHead/navHead";
-import { AmountBox } from "../parts/colorBox/commonColorBox";
+import AdjustAddedElm from "../components/adjust/adjustAsideAdded";
 
 const AdjustPage:FC<WindowProps> = (props) =>{
     return(
         <Container>
             <NavHead {...props}/>
-            <ColorAside Elm={()=><AmountBox />}/>
+            <ColorAside Elm={()=><AdjustAddedElm />}/>
             <AdjustMain />
             <StrageAside />
         </Container>

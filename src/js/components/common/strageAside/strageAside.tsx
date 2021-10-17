@@ -12,7 +12,7 @@ const StrageAside = () =>{
     const colors = useSelector((state:StateType)=>state.tempStrage);
     const colorList = colors.map((c,i)=><StrageColor key={i} cmyk={c.cmyk} rgb={c.rgb} profile={c.profile} name={c.name} />)
     return(
-        < StrageContainer>
+        <StrageContainer>
             {colorList}
         </StrageContainer>
     )

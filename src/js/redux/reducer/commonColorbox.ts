@@ -1,8 +1,8 @@
 import { CMYK , RGB , initCMYK , initRGB  , ColorBox , Profile } from "../commonType";
-import { valueOf } from "../../types/common";
+import { ProcessType } from "./adjustOptions";
 
-export type FillType = "key"|"flat"|"none";
-export const fills = ["key","flat","none"];
+export type FillType = "key"|"flat"|"both";
+export const fills = ["key","flat","both"];
 
 export type CommonBox = ColorBox & {
     fill:FillType
@@ -14,6 +14,22 @@ const initColor:CommonBox = {
     "profile":"CMYK",
     "fill":"flat"
 }
+
+export type AdjustJSXArg = {
+    colorObj:{
+        cmyk:CMYK,
+        rgb:RGB,
+        profile:Profile,
+        fill:FillType,
+        includeBlack?:boolean
+    }|{
+        amount:number,
+        fill:FillType,
+        includeBlack?:boolean
+    },
+    type:keyof ProcessType | "replace"
+}
+
 
 export type CommonColorAction = {
         type:"commonColor_setColor",

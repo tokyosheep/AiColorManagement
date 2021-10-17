@@ -1,4 +1,6 @@
-var Square = function(select,num,mm){
+#include "../partial/matchColorSpace.jsx";
+
+var Square = function(select,mm){
     this.select = select
     this.size = 50 * mm;
     this.item = activeDocument.activeLayer.pathItems.rectangle(
@@ -38,7 +40,7 @@ Square.prototype.setFillColor = function(obj,type,max){
     for(var p in this.item.fillColor){
         try{
             if(p === "typename")continue;
-            if(obj.axe[type][p])this.item.fillColor[p] = MaxAndMin(parseFloat(this.select.fillColor[p]) + obj.step,max);
+            if(obj.axe[p])this.item.fillColor[p] = MaxAndMin(parseFloat(this.select.fillColor[p]) + obj.step,max);
         }catch(e){
             continue;
         }
@@ -51,12 +53,13 @@ Square.prototype.setPosition = function(y,x,z,step){
 }
 
 
-var SetAxes = function (obj,select){
+var SetAxes = function (obj,select,space){
     this.mm = 2.834645;
     this.obj = obj;
     this.step = 55*this.mm;
     this.select = select;
     this.layers = [];
+    this.space = space;
 }
 
 SetAxes.prototype.Zaxe = function(){
@@ -78,14 +81,14 @@ SetAxes.prototype.Yaxe = function(z){
 
 SetAxes.prototype.Xaxe = function(y,z){
     for(var x=-1*this.obj.Xaxe.number;x<=this.obj.Xaxe.number;x++){
-        var sqt = new Square(this.select,y,this.mm);
+        var sqt = new Square(this.select,this.mm);
         sqt.setColor(
             [
                 {step:x*this.obj.Xaxe.step,axe:this.obj.Xaxe},
                 {step:y*this.obj.Yaxe.step,axe:this.obj.Yaxe},
                 {step:z*this.obj.Zaxe.step,axe:this.obj.Zaxe}
             ],
-            this.obj.type
+            this.space
         );
 
         sqt.setPosition(y,x,(z*1.5),this.step);
@@ -114,12 +117,12 @@ BasicSq.prototype.fillColor = function(color){
 }
 
 function createPattern(obj,option){
-    if(!matchColorSpace(obj.type)){
+    if(!matchColorSpace(obj.space)){
         alert("you should match color space");
         return false;
     }
     var select;
-    if(option.start.selectedItem){
+    if(option.start === "selected"){
         select = app.activeDocument.selection[0];
         if(!select){
             alert("you should select an item");
@@ -130,75 +133,74 @@ function createPattern(obj,option){
         basic.fillColor(option.color);
         select = basic.select;
     }
-    var setPattern = new SetAxes(obj,select);
+    var setPattern = new SetAxes(obj.space === "CMYK" ? obj.cmyk : obj.rgb ,select,obj.space);
     setPattern.Zaxe();
     return true;
 }
-/*
+
 var obj = {
     "type": "createPattern",
     "color": {
-        "data": {
-            "type": "CMYK",
+        "cmyk": {
             "Xaxe": {
-                "step": 3,
-                "number": 2,
-                "CMYK": {
-                    "cyan": true,
-                    "magenta": false,
-                    "yellow": true,
-                    "black": false
-                },
-                "RGB": {
-                    "red": false,
-                    "green": false,
-                    "blue": false
-                }
+                "cyan": true,
+                "magenta": true,
+                "yellow": false,
+                "black": false,
+                "number": 5,
+                "step": 3
             },
             "Yaxe": {
-                "step": 3,
-                "number": 2,
-                "CMYK": {
-                    "cyan": false,
-                    "magenta": true,
-                    "yellow": false,
-                    "black": false
-                },
-                "RGB": {
-                    "red": false,
-                    "green": false,
-                    "blue": false
-                }
+                "cyan": true,
+                "magenta": true,
+                "yellow": true,
+                "black": false,
+                "number": 5,
+                "step": 10
             },
             "Zaxe": {
-                "step": 7,
-                "number": 5,
-                "CMYK": {
-                    "cyan": false,
-                    "magenta": false,
-                    "yellow": true,
-                    "black": true
-                },
-                "RGB": {
-                    "red": false,
-                    "green": false,
-                    "blue": false
-                }
+                "cyan": false,
+                "magenta": true,
+                "yellow": true,
+                "black": false,
+                "number": 0,
+                "step": 10
             }
         },
-        "option": {
-            "start": {
-                "selectedItem": false,
-                "colorForm": true
+        "rgb": {
+            "Xaxe": {
+                "red": false,
+                "green": false,
+                "blue": false,
+                "number": 0,
+                "step": 1
             },
-            "color": {
-                "cyan": "4",
-                "magenta": "36",
-                "yellow": "30",
-                "black": "20"
+            "Yaxe": {
+                "red": false,
+                "green": false,
+                "blue": false,
+                "number": 0,
+                "step": 1
+            },
+            "Zaxe": {
+                "red": false,
+                "green": false,
+                "blue": false,
+                "number": 0,
+                "step": 1
             }
+        },
+        "space": "CMYK"
+    },
+    "option": {
+        "centerPoint": false,
+        "start": "selected",
+        "color": {
+            "cyan": 5,
+            "magenta": 1,
+            "yellow": 100,
+            "black": 0
         }
     }
 }
-createPattern(obj.color.data,obj.color.option);
-*/
+createPattern(obj.color,obj.option);

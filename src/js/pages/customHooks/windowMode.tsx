@@ -1,12 +1,12 @@
-import React,{ useCallback , useState } from "react";
-
-type valueOf<T> = T[keyof T];
+import React,{ useCallback , useState , FC } from "react";
+import { valueOf } from "../../types/common";
 
 export type Windows = ["Adjust","Create","Replace","Strage"];
+export const windowKyes:Windows = ["Adjust","Create","Replace","Strage"];
 export type WindowKeys = valueOf<Windows>;
 export type SetMode = React.Dispatch<React.SetStateAction<WindowKeys>>;
 
-const useWindow = () =>{
+const useWindow:()=>[WindowKeys,SetMode] = () =>{
     const [mode,setMode] = useState<WindowKeys>("Adjust");
     return [mode,setMode];
 }

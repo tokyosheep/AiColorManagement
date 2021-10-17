@@ -1,0 +1,1 @@
+export const FormBoxWidth = 150;

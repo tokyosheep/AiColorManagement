@@ -69,8 +69,8 @@
 					<Menu>AiColorManagement</Menu>
 					<Geometry>
 						<Size>
-							<Height>300</Height>
-							<Width>300</Width>
+							<Height>500</Height>
+							<Width>600</Width>
 						</Size>
                     <MinSize>
                             <Height>250</Height>

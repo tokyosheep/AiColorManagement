@@ -1,8 +1,10 @@
 import React,{FC} from "react";
 import styled from "styled-components";
 
+import { FormBoxWidth } from "../../styles/commonValue";
+
 const TextBoxContainer = styled.div`
-    width: 155px;
+    width: ${FormBoxWidth}px;
     height: 45px;
 `;
 
@@ -14,10 +16,15 @@ const TextBoxName = styled.span`
 
 const StdTextBoxForm = styled.input`
     width: 100%;
-    height: 40px;
+    height: 25px;
     border: 1px solid #aaa;
     border-radius: 5px;
     color: #fff;
+    background: #262525;
+    box-sizing:border-box;
+    &:focus{
+        outline: none;
+    }
 `;
 
 export type TextBoxProps = {

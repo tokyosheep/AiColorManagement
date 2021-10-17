@@ -1,7 +1,5 @@
 (function(){
     "use strict";
-    
-    
     var select = app.activeDocument.defaultFillColor;
     if(select.typename === "SpotColor"){
         return JSON.stringify(getfillColor(select.spot.color,

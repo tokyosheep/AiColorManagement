@@ -2,7 +2,7 @@ import React,{ FC , useCallback } from "react";
 import styled from "styled-components";
 import { useSelector , useDispatch } from "react-redux";
 
-import StrageColorBox from "./strageColorBox/strageColorBox";
+import StrageColorDataBox from "./strageColorBox/strageColorBox";
 
 import { StrageContainer } from "../../styles/container";
 import { StateType } from "../../redux/stateType";
@@ -22,7 +22,7 @@ const StrageMain = () =>{
     const colors = tempStrageColors.map((c,i)=>{
         return(
             <li key={i}>
-                <StrageColorBox {...c} index={i}/>
+                <StrageColorDataBox {...c} index={i}/>
             </li>
         )
     });

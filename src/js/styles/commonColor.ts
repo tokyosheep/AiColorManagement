@@ -1,4 +1,4 @@
-export const commonBlue = "#5446F8";
+export const commonBlue = "#372DAA";
 
 export const commonNavy = "#150281";
 

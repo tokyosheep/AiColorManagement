@@ -1,0 +1,65 @@
+{
+    "type": "createPattern",
+    "color": {
+        "cmyk": {
+            "Xaxe": {
+                "cyan": true,
+                "magenta": false,
+                "yellow": false,
+                "black": false,
+                "number": 2,
+                "step": 1
+            },
+            "Yaxe": {
+                "cyan": false,
+                "magenta": true,
+                "yellow": true,
+                "black": false,
+                "number": 1,
+                "step": 1
+            },
+            "Zaxe": {
+                "cyan": false,
+                "magenta": false,
+                "yellow": true,
+                "black": false,
+                "number": 0,
+                "step": 1
+            }
+        },
+        "rgb": {
+            "Xaxe": {
+                "red": false,
+                "green": false,
+                "blue": false,
+                "number": 0,
+                "step": 1
+            },
+            "Yaxe": {
+                "red": false,
+                "green": false,
+                "blue": false,
+                "number": 0,
+                "step": 1
+            },
+            "Zaxe": {
+                "red": false,
+                "green": false,
+                "blue": false,
+                "number": 0,
+                "step": 1
+            }
+        },
+        "space": "CMYK"
+    },
+    "option": {
+        "centerPoint": false,
+        "start": "selected",
+        "color": {
+            "cyan": 5,
+            "magenta": 1,
+            "yellow": 100,
+            "black": 0
+        }
+    }
+}

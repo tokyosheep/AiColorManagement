@@ -73,8 +73,8 @@
             return setCMYKColor(obj);
         }
         if(this.colorSpace == "DocumentColorSpace.RGB"){
-             num = keyColor === "white" ? 255 : 0;
-             obj.setColor(num);
+            num = keyColor === "white" ? 255 : 0;
+            obj.setColor(num);
             return setRGBColor(obj);
         }
 

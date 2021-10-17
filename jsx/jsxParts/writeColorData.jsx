@@ -1,29 +1,11 @@
-(function(){
+function writeColordata(type){
     "use strict";
     var doc = app.activeDocument;
     doc.rulerOrigin = [0, doc.height];//座標の原点をアートボードの左上に設定
     var selects = app.selection;
-    /*
-    var flag = (function(){
-        for(var i=0;i<selects.length;i++){
-            if(selects[i].typename === "PluginItem"){
-                try{
-                    //app.executeMenuCommand("Expand3");
-                    var expandColor = new CreateAction(expandBlend);
-                    expandColor.launchAction();
-                    app.executeMenuCommand("ungroup");
-                    return true;
-                }catch(e){
-                    alert(e);
-                    return false;
-                }
-            }
-        }
-        return true;
-    })();
-    if(!flag)return;
-    */
-    var WriteColorData = function(select){    
+    
+    var WriteColorData = function(select,type){   
+        this.type = type;//strokeColor or fillColor
         this.select = select;
         this.colorSpace = app.activeDocument.documentColorSpace;//get active document color space
         this.textObj = activeDocument.textFrames.add();
@@ -35,11 +17,11 @@
 
     WriteColorData.prototype.setColor = function(){
             var itemColor;
-            if(this.select.fillColor === undefined)return;
-            if(this.select.fillColor.typename === "SpotColor"){
-                itemColor = this.select.fillColor.spot.color;
-            }else if(this.select.fillColor.typename === "RGBColor"||this.select.fillColor.typename === "CMYKColor"){
-                itemColor = this.select.fillColor;
+            if(this.select[this.type] === undefined)return;
+            if(this.select[this.type].typename === "SpotColor"){
+                itemColor = this.select[this.type].spot.color;
+            }else if(this.select[this.type].typename === "RGBColor"||this.select.fillColor.typename === "CMYKColor"){
+                itemColor = this.select[this.type];
             }else{
                 return false;
             }
@@ -59,10 +41,10 @@
     }
 
     WriteColorData.prototype.readObjColor = function(){
-        if(this.colorSpace == "DocumentColorSpace.CMYK" && this.strong > 200){
+        if(this.colorSpace == "DocumentColorSpace.CMYK" && this.type === "fillColor" && this.strong > 200){
             return "white";
         }
-        if(this.colorSpace == "DocumentColorSpace.RGB" && this.strong < 370){
+        if(this.colorSpace == "DocumentColorSpace.RGB" && this.type === "fillColor" && this.strong < 370){
             return "white";
         }
         return "black;"
@@ -135,7 +117,6 @@
         for(var i=0;i<this.textObj.characters.length;i++){
             this.textObj.characters[i].size = 15;
             this.textObj.characters[i].fillColor = colorObj;
-            //$.writeln(this.textObj.characters[i].size);
         }
         this.textObj.left = this.select.left;
         this.textObj.top = this.select.top - this.select.height + this.textObj.height;
@@ -147,7 +128,7 @@
     function writeColorProps(selects){
         for(var n=0;n<selects.length;n++){
             if(selects[n].typename === "PathItem"){
-                var writeData = new WriteColorData(selects[n]);
+                var writeData = new WriteColorData(selects[n],"strokeColor");
                 writeData.writeDown();
             }
             if(selects[n].typename === "GroupItem" && selects[n].pageItems){
@@ -157,4 +138,4 @@
     }
     
     return true;
-})();
+};

@@ -7,6 +7,8 @@ export const containerSize = {
 
 export const MainContainer = {
     Container:styled.div`
+    width: 600px;
+    height: 550px;
         display: grid;
         grid-template-columns: 160px 1fr;
         grid-template-rows: 25px 1fr 95px;
@@ -15,6 +17,7 @@ export const MainContainer = {
             "colorBox main"
             "strage strage"
         ;
+        position: relative;
     `,
     NavContainer:styled.nav`
         display: flex;
@@ -25,11 +28,13 @@ export const MainContainer = {
     `,
     ColorBoxContainer:styled.aside`
         padding: 10px;
-        grid-area: colorbox;
+        grid-area: colorBox;
+        position: relative;
     `,
     CenterContainer:styled.main`
         grid-area:main;
         overflow: scroll;
+        padding: 10px;
     `,
     StrageContainer:styled.aside`
         grid-area:strage;
@@ -59,7 +64,7 @@ export const StrageContainer = {
         grid-area:nav;
         gap:1px;
     `,
-    StrageMain:styled.main`
+    StrageMainContainer:styled.main`
         grid-area:main;
         overflow: scroll;
     `
