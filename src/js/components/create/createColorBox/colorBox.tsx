@@ -100,7 +100,7 @@ const CreateColorBox:FC<CreateBoxProps> = ({box,axe,profile}) =>{
     },[box]);
     const colorBoxes = Object.entries(box).filter(([key,value])=> key !== "number" && key !== "step" ).map(([key,value]:[keyof CMYK|keyof RGB,boolean],i)=>{
         return(
-            <ColorCheckBoxWrapper color={setColorCSS(key)} checked={value}>
+            <ColorCheckBoxWrapper color={setColorCSS(key)} checked={value} key={i}>
                 <input type="checkbox" checked={value} onChange={()=>handleColorCheckBox(key)} />
                 <ColorBoxTitle checked={value}>{key}</ColorBoxTitle>
             </ColorCheckBoxWrapper>

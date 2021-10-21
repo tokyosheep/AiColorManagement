@@ -27,11 +27,13 @@ const AdjustMain = () =>{
     const adjustOptions = useSelector((state:StateType)=>state.adjustOptions);
     const commonColor = useSelector((state:StateType)=>state.commonColorBox);
     const processType = useSelector((state:StateType)=>state.processType);
+    const disabled = commonColor.profile === "RGB" || (!processType.Brightness && !processType.Saturation);
+
     const handleBlackInk = useCallback((e)=>dispatch(adjustOptions_setBlack(e.target.checked)),[adjustOptions]);
 
     const adjustItemColor = async()=>{
         const connect = new SendHostScript();
-        const r:[keyof ProcessType,boolean] = Object.entries(processType).find(([key,value])=> value===true);
+        const r:any = Object.entries(processType).find(([key,value])=> value===true);
         const arg:AdjustJSXArg = r[0] === "Brightness" || r[0] === "Saturation" ?
         {
             type:r[0],
@@ -45,7 +47,7 @@ const AdjustMain = () =>{
             type:r[0],
             colorObj:{...commonColor,includeBlack:adjustOptions.IncludeBlack}
         }
-        await writeDebugData(arg);
+        //await writeDebugData(arg);
         const res = await connect.callHostScript(arg);
         console.log(res);
     }
@@ -54,7 +56,7 @@ const AdjustMain = () =>{
             <FormWrapper>
                 <AdjustRadios />
                 <FillRadios />
-                <StdCheckBox checked={adjustOptions.IncludeBlack} func={handleBlackInk} name="include black"/>
+                <StdCheckBox disabled={disabled} checked={adjustOptions.IncludeBlack} func={handleBlackInk} name="include black"/>
                 <NoticeBleButton name="adjust" func={adjustItemColor} />
             </FormWrapper>
         </CenterContainer>

@@ -14,7 +14,7 @@ function hostScript(obj){
         case "Additional":
         case "Saturation":
         case "Brightness":
-        case "addRatio":
+        case "AddRatio":
         case "replace":
             replaceColor(obj);
             break;
@@ -32,7 +32,7 @@ function hostScript(obj){
             break;
 
         case"createPattern":
-            createPattern(obj.color.data,obj.color.option);
+            createPattern(obj.color,obj.option);
             break;
 
         case"adjust":

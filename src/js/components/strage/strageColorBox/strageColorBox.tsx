@@ -27,6 +27,11 @@ const BoxWrapper = styled.div`
 
 export type StrageBoxProps = StrageColorBox & {index:number};
 
+const setMaxNumber:(num:number,profile:"RGB"|"CMYK")=>number = (num,profile) =>{
+    const max = profile === "RGB" ? 255 : 100 ;
+    return  max < num ? max : num;
+}
+
 const StrageColorDataBox:FC<StrageBoxProps> = (props) =>{
     const dispatch = useDispatch();
     const stageColors = useSelector((state:StateType)=>state.tempStrage);
@@ -36,7 +41,7 @@ const StrageColorDataBox:FC<StrageBoxProps> = (props) =>{
 
     const handleColorObj:ColorSetFunc = useCallback((e,index,key)=>{
         const color = props.profile === "CMYK" ? props.cmyk : props.rgb;
-        color[key] = parseFloat(e.target.value);
+        color[key] = Math.abs(setMaxNumber(parseFloat(e.target.value),props.profile));
         dispatch(tempStrage_setColor(index,props.profile,{...color}));
     },[props]);
 
@@ -70,12 +75,6 @@ const StrageColorDataBox:FC<StrageBoxProps> = (props) =>{
             }
         });
         console.log(r);
-        /*
-        var obj = {type:pasteColor,colorObj:{"type":"CMYK","name":"color","color":
-            {"cyan":30,"magenta":90,"yellow":0,"black":0}
-        }}
-        pasteColor(obj);
-        */
     }
     return(
         <BoxWrapper>

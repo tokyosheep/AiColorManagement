@@ -18,23 +18,13 @@
 #include "./setColors.jsx";
 
 var obj = {
+    "type": "Saturation",
     "colorObj": {
-        "rgb": {
-            "red": 0,
-            "blue": 100,
-            "green": 250
-        },
-        "cmyk": {
-            "cyan": 0,
-            "magenta": 0,
-            "yellow": 0,
-            "black": 0
-        },
-        "profile": "RGB",
-        "fill": "both"
-    },
-    "type": "replace"
-};
+        "amount": 70,
+        "fill": "both",
+        "includeBlack": false
+    }
+}
 replaceColor(obj);
 */
 function turnFillName(fill){
@@ -49,18 +39,37 @@ function turnFillName(fill){
         return "both";
     }
 }
+
+function isAmountableProcess(type){
+    return type==="Saturation"||type==="Brightness";
+}
+
+function isAdjustableColor(targetItem,fillType){
+    var typename = targetItem[fillType].typename;
+    return typename === "CMYKColor" || typename === "RGBColor";
+}
+
 function replaceColor(obj){
     var FillColor = function(obj){
-        if(obj.type==="sturation"||obj.type==="brightness"){
-            this.color = parseFloat(obj.colorObj.amount);
+        if(isAmountableProcess(obj.type)){
+            this.amount = obj.type === "Saturation" ? parseFloat(obj.colorObj.amount)/100 : parseFloat(obj.colorObj.amount);//amount
         }else{
             this.color = obj.colorObj[obj.colorObj.profile.toLowerCase()];
         }
-        this.max = obj.colorObj.profile === "RGB" ? 255 : 100 ;
-        this.profile = obj.colorObj.profile;
+        this.profile = isAmountableProcess(obj.type) ?  getColorSpace() : obj.colorObj.profile;
+        this.max = this.profile === "RGB" ? 255 : 100 ;
         this.fill = turnFillName(obj.colorObj.fill)//strokeColor or fillColor
         this.processType = obj.type;
         this.includeBlack = obj.colorObj.includeBlack !== undefined ? obj.colorObj.includeBlack : false;
+        this.func = function(){};
+        if(obj.type === "Brightness" && this.profile === "CMYK")this.amount *= -1;//cmykとRGBで値が逆
+    }
+
+    FillColor.prototype.isColoredItem = function(targetItem,fillType){
+        return targetItem[fillType === "strokeColor" ? "stroked" : "filled"]
+        &&
+        isAdjustableColor(targetItem,fillType); 
+        ;
     }
 
     function getRatio(num,percent){
@@ -68,86 +77,116 @@ function replaceColor(obj){
     }
 
     function addRatio(num,percent,max){
-        return setMaxMin(num + getRatio(num,percent,max));
+        return setMaxMin(num + getRatio(num,percent),max);
     }
 
-    FillColor.prototype.replace = function(targetItem){
+    FillColor.prototype.replace = function(targetItem,fillType){
         var color = this.profile === "RGB" ? setRGB(this.color) : setCMYK(this.color) ;
-        if(this.fill!=="both"){
-            targetItem[this.fill] = color;
-        }else{
-            targetItem.fillColor = color;
-            targetItem.strokeColor = color;
+        targetItem[fillType] = color;
+    }
+
+    FillColor.prototype.addPercent = function(targetItem,fillType){
+        for(var key in this.color){
+            targetItem[fillType][key] = addRatio(parseFloat(targetItem[fillType][key]),parseFloat(this.color[key]),this.max);
         }
     }
 
-    FillColor.prototype.addPercent = function(targetItem){
-        for(var key in this.color){
-            if(this.fill!=="both"){
-                targetItem[this.fill][key] = addRatio(parseFloat(this.item[this.fill][key]),parseFloat(this.color[key]),this.max);
-            }else{
-                targetItem.strokeColor[key] = addRatio(parseFloat(this.item.strokeColor[key]),parseFloat(this.color[key]),this.max);
-                targetItem.fillColor[key] = addRatio(parseFloat(this.item.fillColor[key]),parseFloat(this.color[key]),this.max);
-            }
+    FillColor.prototype.brightness = function(targetItem,fillType){
+        if(!this.isColoredItem(targetItem,fillType))return;
+        for(var key in targetItem[fillType]){
+            if( key==="typename" || (key==="black" && !this.includeBlack))continue;
+            targetItem[fillType][key] = addRatio(parseFloat(targetItem[fillType][key]),parseFloat(this.amount),this.max);
         }
     }
-
-    FillColor.prototype.brightness = function(targetItem){
-        for(var key in this.color){
-            if( key==="black" && !this.includeBlack)return;
-            if(this.fill!=="both"){
-                targetItem[this.fill][key] = addRatio(parseFloat(this.item[this.fill][key]),parseFloat(this.color),this.max);
-            }else{
-                targetItem.strokeColor[key] = addRatio(parseFloat(this.item.strokeColor[key]),parseFloat(this.color),this.max);
-                targetItem.fillColor[key] = addRatio(parseFloat(this.item.fillColor[key]),parseFloat(this.color),this.max);
-            }
+    function setRatio(color,average,includeBlack){
+        var obj = {}
+        for(var p in color){
+            if(p === "typename" || !includeBlack && p === "black")continue;
+            obj[p] = color[p]/average;
         }
+        return obj;
     }
 
-    FillColor.prototype.Saturation = function(targetItem){
-        for(var key in this.color){
-            if(this.fill!=="both"){
-                
-            }else{
+    FillColor.prototype.addValue = function(value,ratio,average){
+        var add = ratio * this.amount;
+        var gap = (value * ratio) - value;//平均値と数値の間の差
+        var sum = value + (gap * this.amount);//彩度を動かす量
+        if(ratio < 1 && sum > average) return average;//彩度を落とした時に全ての数値を揃えて
+        if(ratio > 1 && sum < average) return average;//グレーになるようにする
+        if(sum < 0)return 0;
+        if(sum > this.max)return this.max;
+        return sum;
+    }
 
-            }
+    FillColor.prototype.adjustChroma = function(targetItem,fillType){
+        var average = 0;//平均値の変数
+        var propNum = 0;//数値の種類の数
+        for( var p in targetItem[fillType]){
+            if(p === "typename"|| (!this.includeBlack && p === "black") )continue;
+            average += targetItem[fillType][p];
+            propNum++
+        }
+        average = average/propNum;
+        var ratio = setRatio(targetItem[fillType],average,this.includeBlack);
+        var newColor = this.profile === "CMYK" ? new CMYKColor() : new RGBColor() ; 
+        for( var p in ratio){
+            newColor[p] = this.addValue(targetItem[fillType][p], ratio[p], average);
+        }
+        if(this.profile === "CMYK" && !this.includeBlack)newColor.black = targetItem[fillType].black;
+        try{
+            targetItem[fillType] = newColor;//選択したアイテムの色を置き換える
+        }catch(e){
+            /*
+                CMYKの値が 0 0 0 100だとエラーになる
+            */
         }
     }
     
-    FillColor.prototype.additional = function(targetItem){
+    FillColor.prototype.additional = function(targetItem,fillType){
         for(var key in this.color){
             try{
-                if(this.fill!=="both"){
-                    targetItem[this.fill][key] = setMaxMin(parseFloat(this.item[this.fill][key]) + parseFloat(this.color[key]),this.max);
-                }else{
-                    targetItem.strokeColor[key] = setMaxMin(parseFloat(this.item.strokeColor[key]) + parseFloat(this.color[key]),this.max);
-                    targetItem.fillColor[key] = setMaxMin(parseFloat(this.item.fillColor[key]) + parseFloat(this.color[key]),this.max);
-                }
+                targetItem[fillType][key] = setMaxMin(parseFloat(targetItem[fillType][key]) + parseFloat(this.color[key]),this.max);
             }catch(e){
                 continue;
             }
         }
     }
 
+    FillColor.prototype.fillColorOnItem = function(targetItem){
+        if(this.fill!=="both"){
+            if(!this.isColoredItem(targetItem,this.fill))return;
+            this.func(targetItem, this.fill);
+        }else{
+            if(this.isColoredItem(targetItem,"fillColor"))this.func(targetItem, "fillColor");
+            if(this.isColoredItem(targetItem,"strokeColor"))this.func(targetItem, "strokeColor");
+        }
+    }
+
     FillColor.prototype.setColor = function(targetItem){
         switch(this.processType){
             case "replace":
-                this.replace(targetItem);
+                this.func = this.replace;
+                this.fillColorOnItem(targetItem);
                 break;
 
-            case "additional":
-                this.additional(targetItem);
+            case "Additional":
+                this.func = this.additional;
+                this.fillColorOnItem(targetItem);
                 break;
 
             case "AddRatio":
-                this.addPercent(targetItem);
+                this.func = this.addPercent;
+                this.fillColorOnItem(targetItem);
                 break;
 
-            case "brightness":
-                this.brightness(targetItem);
+            case "Brightness":
+                this.func = this.brightness;
+                this.fillColorOnItem(targetItem);
                 break;
 
-            case "sturation":
+            case "Saturation":
+                this.func = this.adjustChroma;
+                this.fillColorOnItem(targetItem);
                 break;
 
             default:
@@ -165,7 +204,7 @@ function replaceColor(obj){
             if(selects[i].typename === "CompoundPathItem" && selects[i].pathItems.length > 0){
                 investItem(selects[i].pathItems);
             }
-            if(selects[i].fillColor){
+            if(selects[i].fillColor || selects[i].strokeColor){
                 fill.setColor(selects[i]);
             }
         }
@@ -179,8 +218,7 @@ function replaceColor(obj){
 
     var color = obj.colorObj.profile === "RGB" ? obj.colorObj.rgb : obj.colorObj.cmyk;
     var type = obj.colorObj.profile;
-    
-    if(!matchColorSpace(type)){
+    if(!isAmountableProcess(obj.type)&&!matchColorSpace(type)){
         alert("カラースペースが一致しません。");
         return false;
     }

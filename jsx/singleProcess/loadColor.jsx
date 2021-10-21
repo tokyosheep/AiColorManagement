@@ -18,7 +18,7 @@
             newObj.name = name;
             for(var p in initialObj){
                 if(p === "typename")continue;
-                newObj.color[p] = initialObj[p];
+                newObj.color[p] = initialObj[p].toFixed(2);
             }
             newObj.isSpot = flag;
             newObj.space = getColorSpace();

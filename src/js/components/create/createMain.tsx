@@ -46,9 +46,9 @@ const CreateMain = () =>{
                 color:{...colorBox[colorBox.profile.toLocaleLowerCase()]}
             }
         }
-        await writeDebugData(arg);
-        //const r = await connect.callHostScript(arg);
-        //console.log(r);
+        //await writeDebugData(arg);
+        const r = await connect.callHostScript(arg);
+        console.log(r);
     }
     return(
         <CenterContainer>
