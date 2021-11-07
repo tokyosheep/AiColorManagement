@@ -20,7 +20,7 @@ function writeColordata(type){
             if(this.select[this.type] === undefined)return;
             if(this.select[this.type].typename === "SpotColor"){
                 itemColor = this.select[this.type].spot.color;
-            }else if(this.select[this.type].typename === "RGBColor"||this.select.fillColor.typename === "CMYKColor"){
+            }else if(this.select[this.type].typename === "RGBColor"||this.select[this.type].typename  === "CMYKColor"){
                 itemColor = this.select[this.type];
             }else{
                 return false;
@@ -124,11 +124,11 @@ function writeColordata(type){
     }
     var lay = app.activeDocument.layers.add();
     lay.name = "color data";
-    writeColorProps(activeDocument.selection);
-    function writeColorProps(selects){
+    writeColorProps(activeDocument.selection,type);
+    function writeColorProps(selects,type){
         for(var n=0;n<selects.length;n++){
             if(selects[n].typename === "PathItem"){
-                var writeData = new WriteColorData(selects[n],"strokeColor");
+                var writeData = new WriteColorData(selects[n],type);
                 writeData.writeDown();
             }
             if(selects[n].typename === "GroupItem" && selects[n].pageItems){

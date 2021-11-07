@@ -18,9 +18,9 @@ export type RGBAxe = {
 };
 
 export type Axe<T> = {
-    Xaxe:T,
-    Yaxe:T,
-    Zaxe:T
+    Xaxis:T,
+    Yaxis:T,
+    Zaxis:T
 }
 
 export type AxeKey = "x"|"y"|"z";
@@ -49,14 +49,14 @@ export type AxeColorBox = {
 
 const initAxeColor:AxeColorBox = {
     cmyk:{
-        Xaxe:{...initCMYKAxe},
-        Yaxe:{...initCMYKAxe},
-        Zaxe:{...initCMYKAxe}
+        Xaxis:{...initCMYKAxe},
+        Yaxis:{...initCMYKAxe},
+        Zaxis:{...initCMYKAxe}
     },
     rgb:{
-        Xaxe:{...initRGBAxe},
-        Yaxe:{...initRGBAxe},
-        Zaxe:{...initRGBAxe}
+        Xaxis:{...initRGBAxe},
+        Yaxis:{...initRGBAxe},
+        Zaxis:{...initRGBAxe}
     }
 }
 
@@ -65,13 +65,13 @@ const initAxeColor:AxeColorBox = {
 export type AxeActions = {
     type:"axeColor_setColor",
     color:CMYKAxe|RGBAxe,
-    axe:AxeKey,
+    axis:AxeKey,
     profile:Profile
 }|{
     type:"axeColor_setNumber",
     prop:"step"|"number",
     value:number,
-    axe:AxeKey,
+    axis:AxeKey,
     profile:Profile
 }
 
@@ -81,11 +81,11 @@ export const axeColorBox:AxeReducer = (state=initAxeColor,action)=>{
     switch(action.type){
         
         case "axeColor_setColor":
-            state[action.profile.toLowerCase()][action.axe] = {...action.color};
+            state[action.profile.toLowerCase()][action.axis] = {...action.color};
             return {...state};
 
         case "axeColor_setNumber":
-            state[action.profile.toLowerCase()][action.axe][action.prop] = action.value;
+            state[action.profile.toLowerCase()][action.axis][action.prop] = action.value;
             return {...state};
 
         default:

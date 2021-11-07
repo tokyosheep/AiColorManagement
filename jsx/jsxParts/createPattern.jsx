@@ -1,73 +1,4 @@
-/*
-#include "../partial/matchColorSpace.jsx";
 
-var obj = {
-    "type": "createPattern",
-    "color": {
-        "cmyk": {
-            "Xaxe": {
-                "cyan": true,
-                "magenta": false,
-                "yellow": true,
-                "black": false,
-                "number": 13,
-                "step": 3
-            },
-            "Yaxe": {
-                "cyan": false,
-                "magenta": true,
-                "yellow": false,
-                "black": false,
-                "number": 2,
-                "step": 6
-            },
-            "Zaxe": {
-                "cyan": false,
-                "magenta": false,
-                "yellow": true,
-                "black": false,
-                "number": 1,
-                "step": 8
-            }
-        },
-        "rgb": {
-            "Xaxe": {
-                "red": false,
-                "green": false,
-                "blue": false,
-                "number": 0,
-                "step": 1
-            },
-            "Yaxe": {
-                "red": false,
-                "green": false,
-                "blue": false,
-                "number": 0,
-                "step": 1
-            },
-            "Zaxe": {
-                "red": false,
-                "green": false,
-                "blue": false,
-                "number": 0,
-                "step": 1
-            }
-        },
-        "space": "CMYK"
-    },
-    "option": {
-        "centerPoint": false,
-        "start": "selected",
-        "color": {
-            "cyan": 60,
-            "magenta": 50,
-            "yellow": 0,
-            "black": 0
-        }
-    }
-}
-
-*/
 
 
 var Square = function(select,mm){
@@ -107,7 +38,7 @@ Square.prototype.setFillColor = function(obj,type,max){
     for(var p in this.item.fillColor){
         try{
             if(p === "typename")continue;
-            if(obj.axe[p]){
+            if(obj.axis[p]){
                 this.item.fillColor[p] = MaxAndMin(
                     n === 0 ? 
                         parseFloat(this.select.fillColor[p]) + obj.step 
@@ -143,31 +74,31 @@ SetAxes.prototype.centerPoint = function(num){
     return this.isCenter ? -1*num : 0 ;
 }
 
-SetAxes.prototype.Zaxe = function(){
+SetAxes.prototype.Zaxis = function(){
     var baseLayer = app.activeDocument.layers.add();
     baseLayer.name = "colors";
-    for(var z = this.centerPoint(this.obj.Zaxe.number);z<=this.obj.Zaxe.number;z++){
+    for(var z = this.centerPoint(this.obj.Zaxis.number);z<=this.obj.Zaxis.number;z++){
         var newLayer = baseLayer.layers.add();
         newLayer.name = "pattern"+z;
         this.layers.push(newLayer);
-        this.Yaxe(z);
+        this.Yaxis(z);
     }
 }
 
-SetAxes.prototype.Yaxe = function(z){
-    for(var y= this.centerPoint(this.obj.Yaxe.number);y<=this.obj.Yaxe.number;y++){
-        this.Xaxe(y,z);
+SetAxes.prototype.Yaxis = function(z){
+    for(var y= this.centerPoint(this.obj.Yaxis.number);y<=this.obj.Yaxis.number;y++){
+        this.Xaxis(y,z);
     }
 }
 
-SetAxes.prototype.Xaxe = function(y,z){
-    for(var x= this.centerPoint(this.obj.Xaxe.number);x<=this.obj.Xaxe.number;x++){
+SetAxes.prototype.Xaxis = function(y,z){
+    for(var x= this.centerPoint(this.obj.Xaxis.number);x<=this.obj.Xaxis.number;x++){
         var sqt = new Square(this.select,this.mm);
         sqt.setColor(
             [
-                {step:x*this.obj.Xaxe.step,axe:this.obj.Xaxe},
-                {step:y*this.obj.Yaxe.step,axe:this.obj.Yaxe},
-                {step:z*this.obj.Zaxe.step,axe:this.obj.Zaxe}
+                {step:x*this.obj.Xaxis.step,axis:this.obj.Xaxis},
+                {step:y*this.obj.Yaxis.step,axis:this.obj.Yaxis},
+                {step:z*this.obj.Zaxis.step,axis:this.obj.Zaxis}
             ],
             this.space
         );
@@ -219,7 +150,7 @@ function createPattern(obj,option){
         select = basic.select;
     }
     var setPattern = new SetAxes(obj.space === "CMYK" ? obj.cmyk : obj.rgb ,select,obj.space,option.centerPoint);
-    setPattern.Zaxe();
+    setPattern.Zaxis();
     return true;
 }
 

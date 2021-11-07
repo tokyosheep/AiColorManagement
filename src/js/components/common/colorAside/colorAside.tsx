@@ -16,7 +16,7 @@ const ColorAside:FC<{Elm:FC}> = ({Elm}) =>{
     const color = useSelector((state:StateType)=>state.commonColorBox);
     const writeColorData:(name:string)=>Promise<void> = async(name) =>{
         const connect = new SendHostScript();
-        const r = await connect.callHostScript(name === "write key" ?
+        const r = await connect.callHostScript(name !== "write key" ?
             {type:"writeFlatData",fill:"fillColor"} :
             {type:"writeKeyData",fill:"strokeColor"}
         );
