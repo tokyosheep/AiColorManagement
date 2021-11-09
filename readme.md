@@ -5,6 +5,8 @@ hoping more efficient to do
 the Extension generates color pattern automatically and replaces colors easily
 I developed these features on the panel.
 
+[Japanese explanation is here](https://kawano-shuji.com/justdiary/2021/11/10/illustrator%e7%94%a8extension-aicolormanagement-ver3/)
+
 ## Adjust
 
 adjusting color youselected
@@ -59,7 +61,7 @@ it replaces color . select items you want to replace , and fill in color form , 
 
 ## Strage
 it saves color data temporary  
-in some case , you might think want to keep value of color , but registering spot color or put path item beside art board would make accident and inconvenience.  
+in some case , you might think want to keep value of color , but registering spot color or put path item beside art board is inconvenience.  
 such a case , it usufull .
 not only fill in form , load color from path item , and it export color data as a path item as well.
 
@@ -75,4 +77,5 @@ write key , flat button can write color data you selected
 
 ![writeData](./readmeImg/writeData.png);
 ![writeGIF](./readmeImg/writeColor.gif);
-
+  
+**[hope to download zxp? here](https://kawano-shuji.com/strage/AiColorManagement_ver3.zxp);**
