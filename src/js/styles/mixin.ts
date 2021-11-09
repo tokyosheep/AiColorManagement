@@ -31,3 +31,19 @@ export const shineSVG = css<{color:string}>`
         stroke:${props=> darken(0.2,props.color)};
     }
 `;
+
+export const scrollStyle = css`
+    &::-webkit-scrollbar{
+        width: 7px;
+        height: 0px;
+        background: #000;
+    } 
+    &::-webkit-scrollbar-track{
+        background: #222;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #777;
+        border-radius: 5px;
+        border: 1px solid #000;
+    }
+`;

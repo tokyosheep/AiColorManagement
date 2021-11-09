@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { scrollStyle } from "./mixin";
 
 export const containerSize = {
     width:600,
@@ -7,7 +8,7 @@ export const containerSize = {
 
 export const MainContainer = {
     Container:styled.div`
-    width: 600px;
+    width: 100%;
     height: 550px;
         display: grid;
         grid-template-columns: 160px 1fr;
@@ -18,6 +19,7 @@ export const MainContainer = {
             "strage strage"
         ;
         position: relative;
+        margin: 0;
     `,
     NavContainer:styled.nav`
         display: flex;
@@ -35,6 +37,7 @@ export const MainContainer = {
         grid-area:main;
         overflow: scroll;
         padding: 10px;
+        ${scrollStyle};
     `,
     StrageContainer:styled.aside`
         grid-area:strage;
@@ -44,6 +47,7 @@ export const MainContainer = {
         justify-content: flex-start;
         gap:10px;
         align-items: center;
+        ${scrollStyle};
     `
 }
 

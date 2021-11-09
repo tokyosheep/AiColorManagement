@@ -42,6 +42,7 @@ const OverLayer = styled.div<{isLoad:boolean}>`
     left: 0;
     z-index: 10;
     display: ${props=>props.isLoad ? "bloack" : "none"};
+    margin: 0;
 `;
 
 const BarWrapper = styled.ul`
