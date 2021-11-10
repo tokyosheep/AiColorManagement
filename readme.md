@@ -13,8 +13,8 @@ adjusting color youselected
 filling in form and choose color mode
 and it adjusts colors all of you selected
 
-![adjust](./readmeImg/adjustMode.png);
-![adjustGif](./readmeImg/adjust.gif);
+![adjust](./readmeImg/adjustMode.png)
+![adjustGif](./readmeImg/adjust.gif)
 
 1. **Additional**  
 it adds value of color  
@@ -37,8 +37,8 @@ it adjust brightness of color.
 
 createing color patterns following Axis form's parameter.
 
-![adjust](./readmeImg/createMode.png);
-![adjustGif](./readmeImg/create.gif);
+![adjust](./readmeImg/createMode.png)
+![adjustGif](./readmeImg/create.gif)
 
 each Axis has color button , step , number form. it follows these form.
 like if you want to create cyan color pattern on Y axis , you check yellow button on Y axis and
@@ -47,17 +47,17 @@ step is how adding value of color. fill in higer value , it adds more value of c
 selected and colorForm checkboxes are origin point of pattern. selected is create pattern from item you select as a origin point of pattern. colorForm is create pattern from value of form as a origin point.  
 checking "as a center" checkbox , create added value pattern and subtracted value pattern.
 
-![create_axis](./readmeImg/axis.gif);
-![create_ZAxis](./readmeImg/createZAxis.gif);
+![create_axis](./readmeImg/axis.gif)
+![create_ZAxis](./readmeImg/createZAxis.gif)
 
-![steps](./readmeImg/YAxeAndXAxe.jpg);
-![Zsteps](./readmeImg/ZAxe.jpg);
+![steps](./readmeImg/YAxeAndXAxe.jpg)
+![Zsteps](./readmeImg/ZAxe.jpg)
 
 ## Replace
 it replaces color . select items you want to replace , and fill in color form , it replaces colors you filled in form.
 
-![replaceMode](./readmeImg/replaceMode.png);
-![replaceGIF](./readmeImg/replace.gif);
+![replaceMode](./readmeImg/replaceMode.png)
+![replaceGIF](./readmeImg/replace.gif)
 
 ## Strage
 it saves color data temporary  
@@ -65,17 +65,17 @@ in some case , you might think want to keep value of color , but registering spo
 such a case , it usufull .
 not only fill in form , load color from path item , and it export color data as a path item as well.
 
-![strageMode](./readmeImg/strageMode.png);
-![strageColorGIF](./readmeImg/strage.gif);
+![strageMode](./readmeImg/strageMode.png)
+![strageColorGIF](./readmeImg/strage.gif)
 
 other than that , strage color can be filled in form and use in other mode.
 
-![referToStrage](./readmeImg/strageColors.jpg);
+![referToStrage](./readmeImg/strageColors.jpg)
 
 ## other write color data
-write key , flat button can write color data you selected 
+write key , flat button can write color data as a text on you selected item
 
-![writeData](./readmeImg/writeData.png);
-![writeGIF](./readmeImg/writeColor.gif);
+![writeData](./readmeImg/writeData.png)
+![writeGIF](./readmeImg/writeColor.gif)
   
-**[hope to download zxp? here](https://kawano-shuji.com/strage/AiColorManagement_ver3.zxp);**
+**[hope to download zxp? here](https://kawano-shuji.com/strage/AiColorManagement_ver3.zxp)**
