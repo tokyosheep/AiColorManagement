@@ -1,1 +1,19 @@
-{"colorObj":{"rgb":{"red":0,"blue":0,"green":0},"cmyk":{"cyan":0,"magenta":0,"yellow":50,"black":0},"profile":"CMYK","fill":"key"},"type":"replace"}
+{
+    "type": "Additional",
+    "colorObj": {
+        "rgb": {
+            "red": 0,
+            "blue": 0,
+            "green": 0
+        },
+        "cmyk": {
+            "cyan": 4,
+            "magenta": 3,
+            "yellow": 2,
+            "black": 3
+        },
+        "profile": "CMYK",
+        "fill": "flat",
+        "includeBlack": false
+    }
+}

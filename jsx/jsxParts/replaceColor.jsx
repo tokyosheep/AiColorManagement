@@ -13,15 +13,26 @@
     type:"sturation"||"brightness"||"replace"||"additional"||"AddRatio"
 }
 */
-/*
+ /*
 #include "../partial/matchColorSpace.jsx";
 #include "./setColors.jsx";
 
 var obj = {
-    "type": "Saturation",
+    "type": "Additional",
     "colorObj": {
-        "amount": 70,
-        "fill": "both",
+        "rgb": {
+            "red": 0,
+            "blue": 0,
+            "green": 0
+        },
+        "cmyk": {
+            "cyan": 4,
+            "magenta": 3,
+            "yellow": 2,
+            "black": 3
+        },
+        "profile": "CMYK",
+        "fill": "flat",
         "includeBlack": false
     }
 }
@@ -195,14 +206,14 @@ function replaceColor(obj){
     }
 
     var fill = new FillColor(obj);
-
+    
     function investItem(selects,fill){
         for(var i=0;i<selects.length;i++){
             if(selects[i].pageItems&&selects[i].pageItems.length >0){
-                investItem(selects[i].pageItems);
+                investItem(selects[i].pageItems,fill);
             }
             if(selects[i].typename === "CompoundPathItem" && selects[i].pathItems.length > 0){
-                investItem(selects[i].pathItems);
+                investItem(selects[i].pathItems,fill);
             }
             if(selects[i].fillColor || selects[i].strokeColor){
                 fill.setColor(selects[i]);
@@ -219,7 +230,7 @@ function replaceColor(obj){
     var color = obj.colorObj.profile === "RGB" ? obj.colorObj.rgb : obj.colorObj.cmyk;
     var type = obj.colorObj.profile;
     if(!isAmountableProcess(obj.type)&&!matchColorSpace(type)){
-        alert("カラースペースが一致しません。");
+        alert("current color space doesn't match this");
         return false;
     }
     var selects = app.activeDocument.selection;

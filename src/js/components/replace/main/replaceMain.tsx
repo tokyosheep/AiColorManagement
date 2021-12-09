@@ -23,7 +23,7 @@ const ReplaceMain = () =>{
             colorObj:{...commonColor},
             type:"replace"
         }
-        await writeDebugData(arg);
+        //await writeDebugData(arg);
         const r = await connect.callHostScript(arg);
         console.log(r);
     }
