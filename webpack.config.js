@@ -9,7 +9,6 @@ module.exports = {
     // development に設定するとソースマップ有効でJSファイルが出力される
     mode: mode,
     devtool:"source-map",
-    
     optimization:{
       minimize: enabledSourceMap,
       minimizer:[
@@ -23,15 +22,9 @@ module.exports = {
           }),
       ],
     },
-    
     target:"nwjs",
-    // メインとなるJavaScriptファイル（エントリーポイント）
-    entry: "./src/js/main.tsx",
-    // ファイルの出力設定
     output: {
-      //  出力ファイルのディレクトリ名
       path: `${__dirname}/dist`,
-      // 出力ファイル名
       filename: "main.min.js"
     },
     context:path.join(__dirname,"src/js"),

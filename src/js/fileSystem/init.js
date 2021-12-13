@@ -8,6 +8,8 @@ const dir_desktop = path.join(dir_home, `Desktop`);//デスクトップパス
 const jsxParts = `${extensionRoot}/jsxParts`;
 const partial = `${extensionRoot}/partial`;
 
+const debug = false;
+
 export const changeDocEvent = func =>{
     csInterface.addEventListener("documentAfterActivate",func,false);
 }
@@ -43,6 +45,7 @@ export const init = async() =>{
 }
 
 export const writeDebugData = obj =>{
+    if(debug)return;
     fs.writeFileSync(`${extensionRoot}/data.json`,JSON.stringify(obj));
 }
 
