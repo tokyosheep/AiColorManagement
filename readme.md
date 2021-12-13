@@ -78,4 +78,4 @@ write key , flat button can write color data as a text on you selected item
 ![writeData](./readmeImg/writeData.png)
 ![writeGIF](./readmeImg/writeColor.gif)
   
-**[hope to download zxp? here](https://kawano-shuji.com/strage/AiColorManagement_ver3.zxp)**
+**[hope to download zxp? here](https://kawano-shuji.com/strage/AiColorManagement_3_1.zxp)**
