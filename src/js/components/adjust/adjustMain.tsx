@@ -47,7 +47,7 @@ const AdjustMain = () =>{
             type:r[0],
             colorObj:{...commonColor,includeBlack:adjustOptions.IncludeBlack}
         }
-        await writeDebugData(arg);
+        //await writeDebugData(arg);
         const res = await connect.callHostScript(arg);
         console.log(res);
     }
